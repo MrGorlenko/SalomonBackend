@@ -1,0 +1,125 @@
+.ItemInfo{
+  width: 29%;
+  height: @ItemHeight;
+  background: linear-gradient(90deg, rgba(34, 25, 4, 0.5) 23.23%, rgba(38, 33, 45, 0) 95.34%), linear-gradient(0deg, #1B2232, #1B2232), #2958F9;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  @media (max-width: @mobileResolution){
+    width: 100%;
+    justify-content: center;
+    border-radius: 0 0 12px 12px;
+    margin-top: -15px;
+    z-index: 10;
+    height: auto;
+    min-height: 160px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-bottom: 33px;
+  }
+  .line{
+    width: 100%;
+    @media (max-width: @mobileResolution){
+      margin-top: -3px;
+    }
+  }
+  .logo{
+    width: 100px;
+    @media (max-width: @mobileResolution){
+      display: none;
+    }
+  }
+
+  h3{
+    text-align: center;
+    color: @goldColor;
+    font-size: 34px;
+    line-height: 41px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    p{
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    @media (max-width: @mobileResolution){
+      display: none;
+    }
+  }
+
+  ul {
+    width: calc(100% - 80px);
+    padding-left: 40px;
+    padding-right: 40px;
+    li{
+      list-style-type: none;
+      color: @goldColor;
+      .select{
+        border: 1px solid #8E9BA7;
+        border-radius: 50px;
+        width: 90px;
+        color: #fff;
+      }
+    }
+  }
+
+  .price{
+    align-items: center;
+    @media (max-width: @mobileResolution){
+      width: 230px;
+      justify-content: space-between;
+    }
+    .current, .old{
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .current{
+      font-size: 34px;
+      line-height: 41px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #fff;
+      margin-right: 10px;
+      @media (max-width: @mobileResolution){
+        margin-right: 0;
+        font-size: 26px;
+        line-height: 32px;
+      }
+    }
+    .old{
+      color: #B0BDC9;
+      text-decoration-line: line-through;
+      font-size: 18px;
+      line-height: 22px;
+      font-weight: 500;
+    }
+  }
+
+  .red-button{
+    width: 177px;
+    height: 60px;
+    &:after{
+      content: 'КУПИТЬ';
+    }
+    @media (max-width: @mobileResolution){
+      width: 133px;
+      height: 32px;
+      margin-right: 10px;
+
+    }
+  }
+
+  .one-click-button{
+    width: 177px;
+    height: 44px;
+    margin-bottom: 20px;
+    @media (max-width: @mobileResolution){
+      width: 111px;
+      height: 32px;
+      font-size: 12px;
+      margin-bottom: 0;
+    }
+  }
+}

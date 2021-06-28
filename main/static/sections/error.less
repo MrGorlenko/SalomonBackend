@@ -1,0 +1,49 @@
+.error{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 460px;
+  .container{
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  }
+  h2{
+    font-size: 160px;
+    color: @goldColor;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-align: center;
+    @media (max-width: @mobileResolution){
+      font-size: 130px;
+    }
+  }
+  p{
+    font-weight: 600;
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 31px;
+    text-align: center;
+  }
+  a{
+    &:hover{
+      text-decoration: none;
+      
+    }
+  }
+  button{
+    padding: 16px 43px;
+    text-transform: uppercase;
+    @media (max-width: @mobileResolution){
+      width: 100%;
+    }
+    &:hover{
+      text-decoration: none;
+    }
+    &:after{
+      content: 'НА ГЛАВНУЮ';
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.Item{
+
+  .container{
+    display: flex;
+    justify-content: space-between;
+
+    @media (max-width: @mobileResolution){
+      flex-direction: column;
+    }
+  }
+
+  .item-slider{
+    width: 68%;
+    overflow: hidden;
+    @media (max-width: @mobileResolution){
+      width: 100%;
+      border-radius: 12px 12px 0 0;
+      h3{
+        margin-top: 0;
+        font-size: 28px;
+        line-height: 36px;
+        
+      }
+    }
+
+    .swiper-slide{
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: 12px;
+    }
+  }
+
+}

@@ -1,0 +1,48 @@
+.ItemAbout{
+  height: 140px;
+  width: 100%;
+  margin-top: 64px;
+  margin-bottom: 53px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  background: linear-gradient(0deg, #1B2232, #1B2232), #2958F9;
+  @media (max-width: @mobileResolution){
+    height: auto;
+  }
+  .container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    @media (max-width: @mobileResolution){
+      flex-wrap: wrap;
+      height: auto;
+      align-items: center;
+      justify-content: center;
+    }
+    .icons{
+      height: 100%;
+      display: flex;
+      align-items: center;
+      @media (max-width: @mobileResolution){
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      svg{
+        margin-right: 35px;
+        @media (max-width: @mobileResolution){
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  .one-click-button{
+    text-transform: uppercase;
+    padding: 16px 64px;
+    height: 56px;
+    &:after{
+      content: 'СКАЧАТЬ ПРАЙС';
+    }
+  }
+}

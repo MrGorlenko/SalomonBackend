@@ -1,0 +1,57 @@
+.ItemCharSlider{
+  @media (max-width: @mobileResolution){
+    // display: none;
+  }
+  .container{
+    overflow: hidden;
+    padding-bottom: 65px;
+    position: relative;
+    height: 545px;
+
+  }
+
+  .plank{
+    position: absolute;
+    width: calc(320px - 64px);
+    height: calc(350px - 64px);
+    background: #fff;
+    top: 65px;
+    right: 104px;
+    z-index: 15;
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,.8);
+    padding: 32px;
+    @media (max-width: @mobileResolution){
+      position: relative;
+      top: -340px;
+      width: calc(100% - 60px);
+      right: initial;
+      padding: 33px 30px;
+      border-radius: 0 0 15px 15px;
+    }
+    ul{
+      padding-left: 31px;
+      li{
+        list-style: none;
+        position: relative;
+        margin-bottom: 8px;
+        font-size: 14px;
+        line-height: 18px;
+        &:last-child{
+          margin-bottom: 0;
+        }
+        &::after{
+          position: absolute;
+          left: -31px;
+          display: block;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: @goldColor;
+          top: 4px;
+          content: '';
+        }
+      }
+    }
+  }
+}

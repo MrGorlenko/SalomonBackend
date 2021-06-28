@@ -1,0 +1,98 @@
+.relatedGood{
+  height: calc(470px - 14px);
+
+  width: 280px;
+  background-color: #1B2232;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  padding-top: 14px;
+
+  .logo{
+    width: 92px;
+    height: 66px;
+    display: block;
+    margin: auto;
+  }
+
+  .line{
+    margin-top: 22px;
+    @media (max-width: @mobileResolution) {
+      width: 100%;
+    }
+  }
+
+  .info{
+    padding-top: 24px;
+    height: calc(230px - 24px);
+    background-image: url('../img/linesBgBig.svg');
+  }
+
+  h5{
+    font-size: 21px;
+    line-height: 26px;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 15px;
+
+    text-align: center;
+
+    @media (max-width:  @smallDesctopResolution) {
+     font-size: 19px;   
+    }
+  }
+
+  .price{
+    &_current{
+      margin-right: 11px;
+      font-weight: bold;
+      font-size: 24px;
+      @media (max-width:  @smallDesctopResolution) {
+       font-size: 17px; 
+      }
+    }
+    &_old{
+      text-decoration: line-through;
+      font-size: 15px;
+      @media (max-width:  @smallDesctopResolution) {
+        font-size: 14px;
+      }
+    }
+    &_current, &_old{
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #fff;
+    }
+  }
+
+  .buttons{
+    margin-top: 27px;
+    justify-content: center;
+    .golden-button{
+      text-transform: uppercase;
+      margin-right: 14px;
+      position: relative;
+      &::after{
+        content: 'КУПИТЬ';
+      }
+    }
+    .one-click-button{
+      width: 95px;
+      &:after{
+        width: calc(100% - 36px);
+        content: 'Купить в 1 клик ';
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+    }
+    button{
+      height: 48px;
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+  }
+
+}

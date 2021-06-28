@@ -1,0 +1,85 @@
+.contacts{
+  .sorting{
+    .select{
+      &::after{
+        top: 25px;
+        right: 15px;
+      }
+    }
+  }
+  .catalog{
+    border-radius: 20px;
+    box-shadow: @box-shadow;
+    margin-top: 49px;
+    margin-bottom: 47px;
+    button{
+      min-width: 150px;
+      width: auto;
+    }
+    @media (max-width: @mobileResolution){
+      .swiper-container{
+        overflow: hidden;
+      }
+      background: #fff;
+      padding-top: 24px;
+      padding-bottom: 24px;
+      .swiper-wrapper{
+        display: flex;
+        align-items: center;
+      }
+      .custom-arrow3{
+        height: 62px;
+      }
+      button{
+        padding-top: 16px;
+        padding-bottom: 16px;
+        font-size: 11px;
+      }
+    }
+    
+  }
+
+  &__base{
+    background-color: #fff;
+    box-shadow: @box-shadow;
+    padding-top: 32px;
+    padding-left: 48px;
+    padding-right: 48px;
+    padding-bottom: 80px;
+    border-radius: 20px;
+    margin-bottom: 48px;
+    width: calc(100% - 48px * 2);
+
+    @media (max-width: @mobileResolution){
+      padding-left: 21px;
+      padding-right: 21px;
+      width: calc(100% - 21px * 2);
+      .selections{
+        flex-wrap: wrap;
+        width: 100%;
+        .district{
+          margin-right: 0;
+        }
+        .district, .city{
+          width: 100%;
+          .select{
+            width: calc(100% - 21px * 2)  ;
+          }
+        }
+        
+      }
+    }
+
+    .city{    
+      .select{
+        border: 1px solid @goldColor;
+      }
+    }
+    .district{
+      margin-right: 24px;
+      .select{
+        border: 1px solid @redColor;
+      }
+    }
+  }
+}

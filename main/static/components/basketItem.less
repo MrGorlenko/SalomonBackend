@@ -1,0 +1,141 @@
+.basketItem{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: @box-shadow;
+  padding: 23px 32px;
+  margin-bottom: 24px;
+  width: calc(100% - 64px);
+  img{
+    width: 129px;
+    height: 96px;
+  }
+  .removeIcon{
+    width: 20px;
+    height: 20px;
+  }
+  @media (max-width: @mobileResolution){
+    flex-wrap: wrap;
+    position: relative;
+    justify-content: start;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: calc(100% - 30px);
+  }
+  img{
+    @media (max-width: @mobileResolution){
+      width: 80px;
+      height: 65px;
+    }
+  }
+  .title{
+    @media (max-width: @mobileResolution){
+      width: 50%;
+      margin-left: 15px;
+    }
+    span, p{
+      color: #221904;
+    }
+    span{
+      @media (max-width: @mobileResolution){
+        font-size: 14px;
+      }
+    }
+    p{
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 22px;
+      font-weight: bold;
+      @media (max-width: @mobileResolution){
+        font-size: 15px;
+      }
+    }
+  }
+
+  .counter{
+    border-radius: 50px;
+    border: 1px solid;
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    @media (max-width: @mobileResolution){
+      margin-left: 100px;
+      width: calc(73px - 32px);
+      height: 32px;
+      padding-left: 5px;
+    }
+    .minus, .plus{
+      font-weight: 500;
+      font-size: 22px;
+      cursor: pointer;
+    }
+    span{
+      &:nth-child(2){
+        margin-left: 13px;
+        margin-right: 13px;
+        color: #242424;
+        font-weight: 500;
+        font-size: 18px;
+      }
+    }
+    &_gold{
+      border-color: @goldColor;
+      .minus, .plus{
+        color: @goldColor;
+        &:hover{
+          color: darken(@goldColor, 10);
+        }
+      }
+    }
+    &_silver{
+      border-color: #B0BDC9;
+      .minus, .plus{
+        color: #B0BDC9;
+        &:hover{
+          color: darken(#B0BDC9, 10);
+        }
+      }
+    }
+  }
+
+
+  .price{
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 26px;
+    color: #242424;
+    @media (max-width: @mobileResolution){
+      position: absolute;
+      right: 35px;
+      bottom: 25px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    @media (max-width: 340px){
+      font-size: 14px;
+    }
+  }
+
+  svg{
+    width: 15px;
+    height: 17px;
+    cursor: pointer;
+    @media (max-width: @mobileResolution){
+      position: absolute;
+      width: 24px;
+      height: 25px;
+      top: 55px;
+      right: 35px;
+    }
+    &:hover{
+      path{
+        fill: @goldColor;
+        transition: @transition;
+      }
+    }
+  }
+}

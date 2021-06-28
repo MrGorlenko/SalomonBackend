@@ -1,0 +1,110 @@
+.shipment{
+  .shipmentSwitcher{
+    margin-top: 49px;
+    margin-bottom: 47px;
+    border-radius: 20px;
+    box-shadow: @box-shadow;
+    button{
+      width: auto;
+      min-width: 15%;
+      padding-left: 35px;
+      padding-right: 35px;
+    }
+
+    .long{
+      width: 27%;
+    }
+
+
+  }
+  &__base{
+    width: calc(100% - 49px * 2);
+    min-height: 300px;
+    border-radius: 20px;
+    box-shadow: @box-shadow;
+    margin-bottom: 65px;
+    padding: 34px 49px;
+    background-color: #fff;
+    @media (max-width: @mobileResolution){
+      padding: 10px;
+      width: calc(100% - 10px * 2);
+    }
+  }
+  .catalog{
+    background-color: #fff;
+    padding-top: 26px;
+    padding-bottom: 26px;
+    margin-top: 49px;
+    margin-bottom: 47px;
+    border-radius: 20px;
+    box-shadow: @box-shadow;
+    button{
+      padding: 18px 30px;
+    }
+
+    .custom-arrow3{
+      height: 72px;
+    }
+  }
+// 
+  .city{    
+    .select{
+      border: 1px solid @goldColor;
+    }
+  }
+  .district{
+    margin-right: 24px;
+    .select{
+      border: 1px solid @redColor;
+    }
+  }
+  .top{
+    caption{
+      border-radius: 12px 12px 0 0;
+    }
+  }
+  .bottom{
+    margin-bottom: 48px;
+  }
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    caption{
+      background: linear-gradient(90deg, #DBC266 21.91%, #AE8930 61.64%, #CFA43D 92.79%, #F5E38B 99.57%);
+      color: #fff;
+      padding-top: 17px;
+      padding-bottom: 17px;
+
+    }
+    td{
+      border: 1px solid #f2f2f2;
+      width: 50%;
+      padding-left: 48px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      font-size: 14px;
+      color: #221904;
+      @media (max-width: @mobileResolution){
+        padding-left: 20px;
+      }
+    }
+  }
+
+  .about{
+    display: flex;
+    &:first-child{
+      margin-bottom: 32px;
+    }
+    p{
+      color: #221904;
+      font-size: 14px;
+      line-height: 24px;
+      &:first-child{
+        width: 64px;
+      }
+      &:last-child{
+        width: calc(100%-64px);
+      }
+    }
+  }
+}

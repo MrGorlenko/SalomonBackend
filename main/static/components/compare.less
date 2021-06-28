@@ -1,0 +1,32 @@
+.compare{
+  margin-left: 34px;
+  &__pic{
+    position: relative;
+    width: 19px;
+    height: 18px;
+    @media (max-width: @mobileResolution){
+      width: 30px;
+      height: 20px;
+    }
+  }
+  &__red{
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 19px;
+    height: 19px;
+    color: #fff;
+    border-radius: 50px;
+    background-color: #CA0A0A;
+    span{
+      font-size: 12px;
+    }
+  }
+
+  &__label{
+    margin-left: 15px;
+    font-size: 13px;
+    line-height: 12px;
+    text-transform: uppercase;
+  }
+}

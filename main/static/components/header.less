@@ -1,0 +1,154 @@
+@headerTopHeight: 32px;
+
+.header{
+
+  background-color: #fff;
+  
+  &__top{
+
+    border-bottom: 1px solid #EEEEEE;
+
+    @media (max-width: @mobileResolution){
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    ul{
+      display: flex;
+      justify-content: space-between;
+      width: 62%;
+      @media (max-width: @smallDesctopResolution){
+        width: 65%;
+      }
+      li{
+        list-style-type: none;
+        cursor: pointer;
+        a{
+          text-decoration: none;
+          color: #26212D;
+          text-transform: uppercase;
+
+          @media (max-width: 1600px){
+            font-size: 14px;
+          }
+
+          @media (max-width: @smallDesctopResolution) {
+            font-size: 13px;
+            }
+          }
+        }
+      }
+
+    .phone{
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 18px;
+      svg, img{
+        margin-right: 8px;
+        }
+      }
+      button{
+        padding: 5px 10px;
+      }
+    }
+  &__base{
+    margin-top: 15px;
+    .burger-toggle{
+      margin-right: 13px;
+    }
+    .logo{
+      @media (max-width: 345px){
+        width: 130px;
+      }
+    }
+    .compare{
+      cursor: pointer;
+      transition: @transition;
+      &:hover{
+        transition: @transition;
+        .compare__label{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  &__logos{
+    display: flex;
+    align-items: center;
+    svg{
+      margin-right: 15px;
+      display: block;
+      }
+
+      @media (max-width: @smallDesctopResolution) {
+        span {
+          font-size: 13px;
+        }
+        
+        }
+  }
+  &__phone{
+    a{
+      font-size: 30px;
+      line-height: 37px;
+      color: #1B2232;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 600px;
+      margin-left: 15px;
+      @media (max-width: @smallDesctopResolution){
+        font-size: 21px;
+      }
+      @media (max-width: @mobileResolution){
+        font-size: 15px;
+        line-height: 18px;
+        margin-left: 10px;
+      }
+      
+    }
+    @media (max-width: @mobileResolution){
+      position: absolute;
+      left: 7px;
+      top: 16px;
+      display: flex;
+      align-items: center;
+
+    }
+  }
+  &__button{
+    margin-left: 32px;
+    border-radius: 500px;
+    border: 2px solid @goldColor;
+    padding: 16px 27px;
+    text-transform: uppercase;
+    color: #1B2232;
+    background: none;
+    transition: @transition;
+    &:hover{
+      transition: @transition;
+      
+      background-color: #e4e4e4;
+    }
+    @media (max-width: @smallDesctopResolution){
+      width: 173px;
+      font-size: 11px;
+    }
+  }
+
+  &__basket{
+    margin-left: 32px;
+    position: relative;
+    div{
+      position: absolute;
+      top: 0;
+      right: -5px;
+      border-radius: 50px;
+      background-color: #CA0A0A;
+      color: #fff;
+      width: 18px;
+      height: 17px;
+    }
+  }
+}

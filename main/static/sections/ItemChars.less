@@ -1,0 +1,92 @@
+.ItemChars{
+  width: 100%;
+  min-height: 300px;
+  background: #F7F3E4;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  position: relative;
+  @media (max-width: @mobileResolution){
+    min-height: 1300px;
+  }
+  .container{
+    justify-content: space-between;
+    @media (max-width: @mobileResolution){
+      flex-direction: column;
+    }
+  }
+  .switchers{
+    button{
+      padding: 23px 31px;
+      background: #FBFBFB;
+      border-radius: 12px 12px 0 0;
+      border: none;
+      @media (max-width: @mobileResolution){
+        text-align: left;
+        font-size: 15px;
+        width: 100%;
+        position: absolute;
+        border-radius: 12px;
+        &::after{
+          position: absolute;
+          right: 20px;
+          top: 30px;
+          background-image: url('../img/vectorArrowRight.svg');
+          display: block;
+          width: 7.5px;
+          background-repeat: no-repeat;
+          height: 12px;
+          content: '';
+        }
+        &:nth-child(2){
+          top: 1202px;
+        }
+        &:last-child{
+          top: 1277px;
+        }
+      }
+    }
+    .act{
+      background: #fff;
+      @media (max-width: @mobileResolution){
+        border-radius: 12px 12px 0 0;
+        &::after{
+          position: absolute;
+          right: 20px;
+          top: 30px;
+          background-image: url('../img/vectorArrowDown.svg');
+          display: block;
+          width: 12px;
+          background-repeat: no-repeat;
+          height: 12px;
+          content: '';
+        }
+      }
+    }
+  }
+  .characters{
+    width: 74%;
+    min-height: 500px;
+    @media (max-width: @mobileResolution){
+      width: 100%;
+      position: relative;
+    }
+  }
+  .base{
+    background-color: #fff;
+    border-radius: 0 20px 20px 20px;
+    padding: 48px 32px;
+    width: calc(100% - 64px);
+    //min-height: 500px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    @media (max-width: @mobileResolution){
+      position: absolute;
+      top: 62px;
+      border-radius: 0 0 20px 20px;
+      border-top: 1px solid #ECF0F6;
+    }
+  }
+
+
+}

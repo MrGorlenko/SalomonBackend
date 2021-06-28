@@ -1,0 +1,37 @@
+.runner{
+  width: 288px;
+  height: 3px;
+  background: linear-gradient(0deg, #E7ECEE, #E7ECEE), #E7ECEE;
+  border-radius: 50px;
+  position: relative;
+
+  #thumb-min, #thumb-max{
+    position: absolute;
+    cursor: pointer;
+    width: 19px;
+    height: 19px;
+    background: #fff;
+    border-radius: 50%;
+  }
+
+  #thumb-min{
+    left: 10px;
+  }
+
+  #thumb-max{
+    left: calc(288px - 10px)
+  }
+  
+  // &::after{
+  //   display: block;
+  //   content: '';
+  //   width: 19px;
+  //   height: 19px;
+  //   background: #fff;
+  //   border-radius: 50%;
+  //   left: 30px;
+  //   top: calc(-19px / 2 );
+  //   position: absolute;
+  //   cursor: pointer;
+  // }
+}

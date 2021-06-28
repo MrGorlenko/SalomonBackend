@@ -1,0 +1,109 @@
+.search{
+  width: 354px;
+  // height: calc(752px - 20px);
+  background: linear-gradient(90deg, rgba(34, 25, 4, 0.5) 23.23%, rgba(38, 33, 45, 0) 95.34%), linear-gradient(0deg, #1B2232, #1B2232), #2958F9;
+  border-radius: 12px;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  @media (max-width: @smallDesctopResolution){
+    width: 30%;
+  }
+  @media (max-width: @mobileResolution){
+    width: 100%;
+  }
+
+  button, p, span, li {
+    text-transform: uppercase;
+  }
+
+  h2{
+    color: #fff;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 24px;
+
+  }
+
+  &__logo{
+    margin-bottom: 23px;
+  }
+
+  &__line{
+    margin-top: 17px;
+    width: 100%;
+  }
+
+  &__counter{
+    background: linear-gradient(0deg, #000000, #000000);
+    // opacity: 0.2;
+
+    height: 144px;
+    width: 100%;
+
+    margin-top: 10px;
+  }
+
+  &__selects{
+    margin-top: 22px;
+    padding-left: 0;
+    width: 100%;
+    ul{
+      background: linear-gradient(95.2deg, #1E2027 4.17%, #1B2232 96.87%);
+      
+    }
+    li{
+      height: 44px;
+      list-style-type: none;
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 18px;
+      color: #DBC266;
+      margin-bottom: 10px;
+
+      padding-left: 33px;
+      padding-right: 32px;
+      justify-content: space-between;
+
+      div:first-child{
+        display: flex;
+      }
+
+      span{
+        width: 98px;
+        display: block;
+      }
+
+      img{
+        width: 13px;
+        margin-right: 12px;
+      }
+    }
+  }
+
+  &__btn{
+    margin-top: 26px;
+    width: 81%;
+    height: 56px;
+    padding: 20px;
+    position: relative;
+    &::after{
+      content: 'ПОДОБРАТЬ';
+    }
+  }
+
+  &__cancel{
+    background: none;
+    color: #CA0A0A;
+
+    border: none;
+
+    margin-top: 16px;
+
+    img{
+      margin-right: 8px;
+    }
+  }
+}
+

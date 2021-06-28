@@ -1,0 +1,35 @@
+.basket{
+  &__base{
+    margin-top: 49px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    @media (max-width: @mobileResolution){
+      flex-direction: column;
+      padding-bottom: 64px;
+    }
+    .items{
+      width: 100%;
+      @media (max-width: @mobileResolution){
+        width: 100%;
+      }
+    }
+    .overall{
+      width: calc(55% - 66px);
+      height: 170px;
+      background: linear-gradient(0deg, #1B2232, #1B2232), #2958F9;
+      box-shadow: @box-shadow;
+      border-radius: 20px;
+
+      @media (max-width: @smallDesctopResolution){
+        height: 190px;
+      }
+      @media (max-width: @mobileResolution){
+        width: calc(100% - 66px);
+        padding: 24px 33px;
+        height: 170px;
+      }
+    }
+  }
+}

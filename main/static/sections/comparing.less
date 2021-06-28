@@ -1,0 +1,57 @@
+.comparing{
+  .swicther{
+    box-shadow: @box-shadow;
+    margin-top: 50px;
+    border-radius: 20px;
+    @media (max-width: @mobileResolution){
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 24px;
+      padding-left: 33px;
+      padding-bottom: 30px;
+      width: calc(100% - 33px);
+    }
+    button{
+      position: relative;
+      @media (max-width: @mobileResolution){
+        width: 158px;
+        height: 48px;
+        padding: 0;
+      }
+      span{
+        position: absolute;
+        right: 10px;
+        top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: @redColor;
+        color: #fff;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        font-size: 12px;
+        @media (max-width: @mobileResolution){
+          top: 15px;
+          right: 15px;
+        }
+      }
+    }
+    .sorting{
+      height: calc(100% - 72px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @media (max-width: @mobileResolution){
+        height: initial;
+        top: initial;
+        bottom: 39px;
+        width: 70px;
+        right: 20px;
+      }
+    }
+  }
+  .container{
+    padding-bottom: 62px;
+  }
+}

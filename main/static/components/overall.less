@@ -1,0 +1,76 @@
+.overall{
+  padding: 33px;
+  .price{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .current{     
+      font-weight: 600;
+      font-size: 30px;
+      @media (max-width: @mobileResolution){
+        font-size: 22px;
+      }
+      @media (max-width: 330px){
+        font-size: 19px;
+      }
+    }
+    .old{
+      text-decoration-line: line-through;
+      font-weight: 500;
+      font-size: 14px;
+      @media (max-width: @mobileResolution){
+        font-size: 11px;
+      }
+      @media (max-width: 330px){
+        font-size: 9px;
+      }
+    }
+    p{
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #FFFFFF;
+    }
+    .discount{
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: @goldColor;
+      width: 64px;
+      height: 24px;
+      border-radius: 50px;
+      @media (max-width: @mobileResolution){
+        width: 50px;
+        font-size: 13px;
+      }
+    }
+  }
+  .red-button{
+    width: 100%;
+    height: 56px;
+    margin-top: 21px;
+    &:after{
+      content: 'Оформить заказ';
+    }
+  }
+
+  .why{
+    width: calc(100%-31px);
+    height: 32px;
+    padding-left: 31px;
+    background: #221904;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    @media (max-width: @mobileResolution){
+      height: 48px;
+    }
+    p{
+      margin-left: 16px;
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #fff;
+    }
+  }
+}

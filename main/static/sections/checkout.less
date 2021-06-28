@@ -1,0 +1,129 @@
+.checkout{
+  background-color: #fff;
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+  .container{
+    width: 100%;
+    max-width: 100%;
+  }
+
+  h3{
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #221904;
+    font-weight: 800;
+    font-size: 28px;
+  }
+
+  .form{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 48px;
+  }
+
+  .input{
+    //width: calc(31% - 31px);
+    width: 100%;
+    height: 56px;
+    border-radius: 50px;
+    border: 1px solid #E5E5E5;
+    padding-left: 31px;
+    outline: none;
+    margin-bottom: 24px;
+    margin-right: 0px;
+    &:nth-child(3n){
+      margin-right: 0;
+    }
+    @media (max-width: @mobileResolution){
+      width: calc(100% - 35px);
+      padding-left: 35px;
+      margin-right: 0;
+    }
+  }
+
+  .select{
+    padding-top: 0;
+    padding-bottom: 0;
+    display: flex;
+    align-items: center;
+    padding-right: 0;
+    &::after{
+      top: 25px;
+    }
+    ul{
+      li{
+        list-style-type: none;
+        color: #fff;
+      }
+    }
+  }
+
+  .annotation{
+    font-size: 14px;
+    width: 100%;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #E7ECEE;
+    .red{
+      color: @redColor
+    }
+  }
+
+  .final{
+    padding-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    @media (max-width: @mobileResolution){
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+    .red-button{
+      padding: 16px 43px;
+      @media (max-width: @mobileResolution){
+        width: 100%;
+        margin-top: 24px;
+      }
+      &::after{
+        content: 'Оформить заказ';
+      }
+    }
+
+  }
+
+  .finalPrice{
+    display: flex;
+    @media (max-width: @mobileResolution){
+      width: 100%;
+      margin-top: 26px;
+    }
+    span, p{
+      @media (max-width: @mobileResolution){
+        width: 50%;
+      }
+    }
+    span{
+      font-size: 17px;
+    }
+    p{
+      font-size: 22px;
+      font-weight: 500;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 10px;
+    }
+  }
+
+  .confirm{
+    display: flex;
+    input{
+      margin-bottom: 0;
+    }
+    p{
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 15px;
+    }
+  }
+}

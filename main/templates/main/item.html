@@ -122,11 +122,11 @@
           <p class="old">{{item.old_price}}</p>
         </div>
 
-        <button class="red-button"> 
+        <button class="red-button" onclick= "location.href='{% url 'add_to_cart' ct_model=item.category slug=item.id %}?name=buy'">
           Купить
         </button>
 
-        <button class="one-click-button">
+        <button class="one-click-button" onclick= "location.href='{% url 'add_to_cart' ct_model=item.category slug=item.id %}?name=buy_on_click'">
           Купить в 1 клик
         </button>
       </div>

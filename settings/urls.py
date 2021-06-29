@@ -25,7 +25,8 @@ urlpatterns = [
     path('', Main_Page.as_view(), name='home'),
     path('djrichtextfield/', include('djrichtextfield.urls')),
     path('items/<str:ct_model>/<str:slug>/', Items_Details.as_view(), name='item'),
-    path('cart/', Cart_View.as_view(), name='cart')
+    path('cart/', Cart_View.as_view(), name='cart'),
+    path('add_to_cart/<str:ct_model>/<str:slug>/', Add_To_Cart.as_view(), name='add_to_cart'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

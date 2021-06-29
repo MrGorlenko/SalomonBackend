@@ -357,7 +357,7 @@
             </div>
 
           
-            <button class="gold one-click-button">Купить в 1 клик</button>
+            <button class="gold one-click-button" onclick="location.href='{% url 'add_to_cart' ct_model=good.category slug=good.slug %}'">Купить в 1 клик</button>
 
           <!-- <div class='compare d-flex align-items-center'>
             <img src="{% static 'img/compareGold.svg' %}" alt="">

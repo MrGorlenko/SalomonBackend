@@ -3,9 +3,10 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import DetailView, View
 from main.models import *
+from main.mixins import *
 
 
-class Main_Page(View):
+class Main_Page(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
         print("Текущая сессия: {}".format(request.session.session_key))
@@ -24,6 +25,7 @@ class Main_Page(View):
             'goods_sizes': goodSizes,
             'goods_icons': goodIcons,
             'goods_cats': goodCategories,
+            'cart': self.cart,
         }
         return render(
             request,
@@ -32,7 +34,7 @@ class Main_Page(View):
         )
 
 
-class Items_Details(DetailView):
+class Items_Details(CartMixin, DetailView):
     CT_MODEL_MODEL_CLASS = {
         'матрасы': Good,
         'кровати': Good,
@@ -46,6 +48,7 @@ class Items_Details(DetailView):
     def get_context_data(self, **kwargs):
         context = super(Items_Details, self).get_context_data(**kwargs)
         context['images'] = Goods_Images.objects.all()
+        context['ct_model'] = self.model
         return context
 
     context_object_name = 'item'
@@ -53,16 +56,14 @@ class Items_Details(DetailView):
     slug_url_kwarg = 'slug'
 
 
-class Cart_View(View):
+class Cart_View(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
         print("Текущая сессия: {}".format(request.session.session_key))
-        customer = Customer.objects.get(session_id=request.session.session_key)
-        cart = Cart.objects.get(owner=customer)
         category = GoodsCategory.objects.all()
         images = Goods_Images.objects.all()
         context = {
-            'cart': cart,
+            'cart': self.cart,
             'category': category,
             'image': images,
         }
@@ -71,3 +72,25 @@ class Cart_View(View):
             'main/basket.html',
             context=context
         )
+
+
+class Add_To_Cart(CartMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        name = request.GET.get('name')
+        ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
+        product = Good.objects.get(pk=slug)
+        cart_product, created = Goods_Cart.objects.get_or_create(
+            user=self.cart.owner,
+            cart=self.cart,
+            content_type_id=1,
+            object_id=product.id
+        )
+        if created:
+            self.cart.products.add(cart_product)
+        if name == 'buy':
+            return HttpResponseRedirect('/')
+        elif name == 'buy_on_click':
+            return HttpResponseRedirect('/cart/')
+        else:
+            print('suka')

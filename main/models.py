@@ -85,7 +85,6 @@ class Goods_Cart(models.Model):
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE, null=True)
     cart = models.ForeignKey('Cart', verbose_name='Корзина', on_delete=models.CASCADE,
                              related_name='related_products')
-    #goods = models.ForeignKey(Good, verbose_name='Продукт', on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
     object_id = models.PositiveIntegerField(null=True)
     content_object = GenericForeignKey('content_type', 'object_id')
@@ -94,6 +93,10 @@ class Goods_Cart(models.Model):
 
     def __str__(self):
         return 'Продукт: {}'.format(self.content_object.title)
+
+    def save(self, *args, **kwargs):
+        self.final_price = self.qty * self.content_object.price
+        super().save(*args, **kwargs)
 
 
 class Customer(models.Model):
@@ -107,7 +110,7 @@ class Cart(models.Model):
     owner = models.ForeignKey('Customer', null=True, verbose_name='Владелец', on_delete=models.CASCADE)
     products = models.ManyToManyField(Goods_Cart, blank=True, related_name='related_cart')
     total_products = models.PositiveIntegerField(default=0)
-    final_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=20)
+    final_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
     in_order = models.BooleanField(default=False)
     for_anonymous_users = models.BooleanField(default=False)
 

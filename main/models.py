@@ -90,12 +90,16 @@ class Goods_Cart(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
     qty = models.PositiveIntegerField(default=1)
     final_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=20)
+    old_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=20)
+    sale = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=20)
 
     def __str__(self):
         return 'Продукт: {}'.format(self.content_object.title)
 
     def save(self, *args, **kwargs):
         self.final_price = self.qty * self.content_object.price
+        self.old_price = self.qty * self.content_object.old_price
+        self.sale = self.qty * self.content_object.old_price - self.qty * self.content_object.price
         super().save(*args, **kwargs)
 
 
@@ -113,6 +117,23 @@ class Cart(models.Model):
     final_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
     in_order = models.BooleanField(default=False)
     for_anonymous_users = models.BooleanField(default=False)
+    old_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
+    sale = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
 
     def __str__(self):
         return str(self.id)
+
+    def save(self, *args, **kwargs):
+        cart_data = self.products.aggregate(models.Sum('final_price'), models.Count('id'))
+        old_price = self.products.aggregate(models.Sum('old_price'), models.Count('id'))
+        sale = self.products.aggregate(models.Sum('sale'), models.Count('id'))
+        if cart_data.get('final_price__sum'):
+            self.final_price = cart_data['final_price__sum']
+            self.old_price = old_price['old_price__sum']
+            self.sale = sale['sale__sum']
+        else:
+            self.final_price = 0
+            self.old_price = 0
+            self.sale = 0
+        self.total_products = cart_data['id__count']
+        super().save(*args, **kwargs)

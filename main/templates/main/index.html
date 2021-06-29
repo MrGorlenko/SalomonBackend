@@ -337,7 +337,7 @@
             <span class='d-none pr'>{{good.price}}</span>
             {% for slide in  goods_images %}
               {% if slide.prop.title == good.title %}
-                <span class='d-none pic'>{{slide.image.url}}</span>
+                <span class='d-none pic'>{{ slide.image.url }}</span>
               {% endif %}
             {% endfor %}
             <span class='d-none cat'>{{good.category}}</span>
@@ -357,7 +357,7 @@
             </div>
 
           
-            <button class="gold one-click-button" onclick="location.href='{% url 'add_to_cart' ct_model=good.category slug=good.slug %}'">Купить в 1 клик</button>
+            <button class="gold one-click-button" onclick="location.href='{% url 'add_to_cart' ct_model=good.category slug=good.slug %}?name=buy_on_click'">Купить в 1 клик</button>
 
           <!-- <div class='compare d-flex align-items-center'>
             <img src="{% static 'img/compareGold.svg' %}" alt="">

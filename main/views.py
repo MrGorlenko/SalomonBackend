@@ -88,9 +88,27 @@ class Add_To_Cart(CartMixin, View):
         )
         if created:
             self.cart.products.add(cart_product)
+            self.cart.save()
         if name == 'buy':
             return HttpResponseRedirect('/')
         elif name == 'buy_on_click':
             return HttpResponseRedirect('/cart/')
         else:
             print('suka')
+
+
+class Delete_From_Cart(CartMixin, View):
+    def get(self, request, *args, **kwargs):
+        ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
+        product = Good.objects.get(pk=slug)
+        cart_product = Goods_Cart.objects.get(
+            user=self.cart.owner,
+            cart=self.cart,
+            content_type_id=1,
+            object_id=product.id
+        )
+
+        self.cart.products.remove(cart_product)
+        cart_product.delete()
+        self.cart.save()
+        return HttpResponseRedirect('/cart/')

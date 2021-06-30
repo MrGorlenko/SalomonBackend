@@ -28,6 +28,7 @@ urlpatterns = [
     path('cart/', Cart_View.as_view(), name='cart'),
     path('add_to_cart/<str:ct_model>/<str:slug>/', Add_To_Cart.as_view(), name='add_to_cart'),
     path('remove_from_cart/<str:ct_model>/<str:slug>/', Delete_From_Cart.as_view(), name='remove_from_cart'),
+    path('change_count/<str:ct_model>/<str:slug>/', Change_Count_Items.as_view(), name='change_count'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

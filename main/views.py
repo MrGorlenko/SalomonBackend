@@ -112,3 +112,21 @@ class Delete_From_Cart(CartMixin, View):
         cart_product.delete()
         self.cart.save()
         return HttpResponseRedirect('/cart/')
+
+
+class Change_Count_Items(CartMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
+        product = Good.objects.get(pk=slug)
+        cart_product = Goods_Cart.objects.get(
+            user=self.cart.owner,
+            cart=self.cart,
+            content_type_id=1,
+            object_id=product.id
+        )
+        qty = int(request.POST.get('qty'))
+        cart_product.qty = qty
+        cart_product.save()
+        self.cart.save()
+        return HttpResponseRedirect('/cart/')

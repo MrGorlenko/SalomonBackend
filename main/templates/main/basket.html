@@ -31,17 +31,20 @@
             </div>
 
             <div class="counter counter_gold">
+              <form action="{% url 'change_count' ct_model=item.content_object.category slug=item.content_object.id %}" method="POST">
+                {% csrf_token %}
               <span class="minus">
                 -
               </span>
               <span class="number">
-                1
+                <input type="number" min="1"  value="{{ item.qty }}" name="qty">
               </span>
               <span class="plus">
                 +
               </span>
+                <input type="submit" class="btn btn-primary" value="Изменить кол-во">
             </div>
-
+            </form>
             <div class="price">
               {{ item.final_price }} руб
             </div>

@@ -115,8 +115,9 @@ class Delete_From_Cart(CartMixin, View):
 
 
 class Change_Count_Items(CartMixin, View):
-
+    
     def post(self, request, *args, **kwargs):
+        print('123')
         ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
         product = Good.objects.get(pk=slug)
         cart_product = Goods_Cart.objects.get(

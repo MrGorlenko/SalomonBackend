@@ -14,6 +14,7 @@
 <body class='index'>
 
   <header class='header'>
+    куки: <p id='cookies'></p>
     <div class="header__top">
 
       <div class="container d-flex-align-between">
@@ -104,8 +105,9 @@
         </div>
 
         <button class='header__button d-sm-none'>
-          Заказать звонок
+          заказать звонок
         </button>
+
 
         <a href="{% url 'cart' %}" class='header__basket'>
           <svg width="30" height="32" viewBox="0 0 30 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -436,6 +438,8 @@
           <button id='ModalGoodBuy' class="red-button"> 
             Добавить в корзину
           </button>
+
+
   
         </div>
 
@@ -599,6 +603,12 @@
     </div>
   </footer>
 
+  <script>
+    let cookies = document.cookie;
+    console.log(cookies)
+
+    document.querySelector('#cookies').innerHTML = cookies
+  </script>
 
   <script src='{% static "js/scripts/compare.js" %}'></script>
   <!--<script src='{% static "js/scripts/cart.js" %}'></script> -->

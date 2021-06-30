@@ -119,14 +119,16 @@
 
         <div class="price d-flex">
           <p class="current">{{item.price}}</p>
-          <p class="old">{{item.old_price}}</p>
+          <p class="old">{{item.old_price}}</p> 
         </div>
 
         <button class="red-button" onclick= "location.href='{% url 'add_to_cart' ct_model=item.category slug=item.id %}?name=buy'">
           Купить
         </button>
 
-        <button class="one-click-button" onclick= "location.href='{% url 'add_to_cart' ct_model=item.category slug=item.id %}?name=buy_on_click'">
+
+        <button id='testAjaxButton' class="one-click-button" 
+        onclick= "location.href='{% url 'add_to_cart' ct_model=item.category slug=item.id %}?name=buy_on_click'">
           Купить в 1 клик
         </button>
       </div>
@@ -1042,12 +1044,13 @@
   </section>
 
 
+
+
+<script>
+
+console.log($.session.get('key1'))
+
+</script>
+
   {% endblock content %}
     
-
-  <script src="{% static 'js/scripts/slider-swiper.js' %}"></script>
-  <script src="{% static 'js/scripts/select.js' %}"></script>
-  <script src="{% static 'js/scripts/main.js' %}"></script>
-  <!-- <script src='../js/scripts/runner.js'></script> -->
-</body>
-</html>

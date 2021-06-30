@@ -31,10 +31,10 @@
             </div>
 
             <div class="counter counter_gold">
-              <form action="{% url 'change_count' ct_model=item.content_object.category slug=item.content_object.id %}" method="POST">
+              <form id='test_form' action="{% url 'change_count' ct_model=item.content_object.category slug=item.content_object.id %}" method="POST">
                 {% csrf_token %}
               <span class="minus">
-                -
+                -  
               </span>
               <span class="number">
                 <input type="number" min="1"  value="{{ item.qty }}" name="qty">
@@ -180,6 +180,28 @@
 
   <!-- base -->
     
+
+  <script>
+
+    $.session.set('key1', 'myValue')
+
+    $('#test_form').submit((e)=>{
+      e.preventDefault();
+
+      var form = $(this)
+      var url = $('#test_form').attr('action');
+      var localHref = window.location.href
+      localHref = localHref.slice(0,-1)
+      $.ajax({
+        type: 'POST',
+        url: url,
+        data: form.serialize(),
+        success: (data) => {
+          console.log(data)
+        }
+      })
+    })
+  </script>
 
   <script src='{% static "js/scripts/slider-swiper.js" %}'></script>
   <script src='{% static "js/scripts/select.js" %}'></script>

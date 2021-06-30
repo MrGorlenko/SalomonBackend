@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 pillow = "*"
 django-richtextfield = "*"
+django = "*"
+django-mathfilters = "*"
 
 [requires]
 python_version = "3.9"

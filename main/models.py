@@ -104,7 +104,7 @@ class Goods_Cart(models.Model):
 
 
 class Customer(models.Model):
-    session_id = models.CharField(max_length=40, null=True)
+    session_id = models.GenericIPAddressField(max_length=40, null=True)
 
     def __str__(self):
         return str(self.session_id)
@@ -112,7 +112,7 @@ class Customer(models.Model):
 
 class Cart(models.Model):
     owner = models.ForeignKey('Customer', null=True, verbose_name='Владелец', on_delete=models.CASCADE)
-    products = models.ManyToManyField(Goods_Cart, blank=True, related_name='related_cart', null=True)
+    products = models.ManyToManyField(Goods_Cart, blank=True, related_name='related_cart')
     total_products = models.PositiveIntegerField(default=0)
     final_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
     in_order = models.BooleanField(default=False)

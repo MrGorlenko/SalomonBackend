@@ -11,25 +11,17 @@ class CartMixin(View):
         else:
             ip = request.META.get('REMOTE_ADDR')
         print(ip)
-        if Cart.objects.exclude(products__isnull=True):
-            last_cart_id = 0
+        last_cart_id = Cart.objects.latest('id')
+        if request.user.is_authenticated:
+            print('dasda')
         else:
-            last_cart_id = Cart.objects.latest('id')
-        if not request.user.is_authenticated:
-            # customer = Customer.objects.filter(session_id=request.session.session_key).first()
-            # if not customer:
-            #    customer = Customer.objects.create(
-            #        session_id=request.session.session_key
-            #    )
-            # cart = Cart.objects.filter(owner=customer, in_order=False).first()
-            # if not cart:
-            #    cart = Cart.objects.create(id=str(last_cart_id.id + 1), owner=customer, in_order=True)
-            # else:
-            cart = Cart.objects.filter().first()
+            customer = Customer.objects.filter(session_id=ip).first()
+            if not customer:
+                customer = Customer.objects.create(
+                    session_id=ip
+                )
+            cart = Cart.objects.filter(owner=customer).first()
             if not cart:
-                cart = Cart.objects.create(id=str(last_cart_id.id + 1),
-                                           owner=str(ip)
-                                           )
-                print(cart)
-            self.cart = cart
+                cart = Cart.objects.create(id=str(last_cart_id.id + 1), owner=customer)
+        self.cart = cart
         return super().dispatch(request, *args, **kwargs)

@@ -122,15 +122,14 @@
           <p class="old">{{item.old_price}}</p> 
         </div>
 
-        <button class="red-button" onclick= "location.href='{% url 'add_to_cart' ct_model=item.category slug=item.id %}?name=buy'">
+        <form id="buy" action="{% url 'add_to_cart' ct_model=item.category slug=item.id %}" method="POST">
           Купить
-        </button>
+        </form>
 
 
-        <button id='testAjaxButton' class="one-click-button" 
-        onclick= "location.href='{% url 'add_to_cart' ct_model=item.category slug=item.id %}?name=buy_on_click'">
+        <form id="buy_on_click" action="{% url 'add_to_cart' ct_model=item.category slug=item.id %}" method="POST">
           Купить в 1 клик
-        </button>
+        </form>
       </div>
     </div>
   </section>

@@ -355,9 +355,10 @@
             <div class="d-none feedbacks">
               {{good.feedbacks|safe}}
             </div>
-
-          
-            <button class="gold one-click-button" onclick="location.href='{% url 'add_to_cart' ct_model=good.category slug=good.slug %}?name=buy_on_click'">Купить в 1 клик</button>
+            <form id="buy_on_click" action="{% url 'add_to_cart' ct_model=good.category slug=good.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit">Купить в один клик</button>
+            </form>
 
           <!-- <div class='compare d-flex align-items-center'>
             <img src="{% static 'img/compareGold.svg' %}" alt="">

@@ -1,15 +1,15 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import DetailView, View
+from django.views.generic import DetailView, View, CreateView, FormView, UpdateView
 from main.models import *
 from main.mixins import *
+from django.http import JsonResponse
 
 
 class Main_Page(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
-        print("Текущая сессия: {}".format(request.session.session_key))
         slides = Slides.objects.all()
         goodCategories = GoodsCategory.objects.all()
         goods = Good.objects.all()
@@ -76,8 +76,7 @@ class Cart_View(CartMixin, View):
 
 class Add_To_Cart(CartMixin, View):
 
-    def get(self, request, *args, **kwargs):
-        name = request.GET.get('name')
+    def post(self, request, *args, **kwargs):
         ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
         product = Good.objects.get(pk=slug)
         cart_product, created = Goods_Cart.objects.get_or_create(
@@ -86,19 +85,16 @@ class Add_To_Cart(CartMixin, View):
             content_type_id=1,
             object_id=product.id
         )
+        print(cart_product)
         if created:
             self.cart.products.add(cart_product)
             self.cart.save()
-        if name == 'buy':
-            return HttpResponseRedirect('/')
-        elif name == 'buy_on_click':
-            return HttpResponseRedirect('/cart/')
-        else:
-            print('suka')
+        return HttpResponseRedirect('/cart/')
 
 
 class Delete_From_Cart(CartMixin, View):
-    def get(self, request, *args, **kwargs):
+
+    def post(self, request, *args, **kwargs):
         ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
         product = Good.objects.get(pk=slug)
         cart_product = Goods_Cart.objects.get(
@@ -115,9 +111,8 @@ class Delete_From_Cart(CartMixin, View):
 
 
 class Change_Count_Items(CartMixin, View):
-    
+
     def post(self, request, *args, **kwargs):
-        print('123')
         ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
         product = Good.objects.get(pk=slug)
         cart_product = Goods_Cart.objects.get(
@@ -127,6 +122,7 @@ class Change_Count_Items(CartMixin, View):
             object_id=product.id
         )
         qty = int(request.POST.get('qty'))
+        print('Количество товара в корзине: ' + str(qty))
         cart_product.qty = qty
         cart_product.save()
         self.cart.save()

@@ -85,7 +85,6 @@ class Add_To_Cart(CartMixin, View):
             content_type_id=1,
             object_id=product.id
         )
-        print(cart_product)
         if created:
             self.cart.products.add(cart_product)
             self.cart.save()
@@ -94,7 +93,7 @@ class Add_To_Cart(CartMixin, View):
 
 class Delete_From_Cart(CartMixin, View):
 
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
         product = Good.objects.get(pk=slug)
         cart_product = Goods_Cart.objects.get(
@@ -125,5 +124,6 @@ class Change_Count_Items(CartMixin, View):
         print('Количество товара в корзине: ' + str(qty))
         cart_product.qty = qty
         cart_product.save()
+        print(cart_product)
         self.cart.save()
         return HttpResponseRedirect('/cart/')

@@ -16,9 +16,10 @@
   <section class="basket section">
     <div class="container">
       <h2 class="pageHeader">Ваша корзина {% if not cart.products.count %}пуста{% endif %} </h2>
-        {% for item in cart.products.all %}
+        
       <div class="basket__base">
         <div class="items">
+          {% for item in cart.products.all %}
           <div class="basketItem">
             <img src="{{ item.content_object.image_for_cart.url }}" alt="">
             <div class="title">
@@ -30,7 +31,7 @@
               </p>
             </div>
 
-            <div class="counter counter_gold">
+            <!-- <div class="counter counter_gold">
               <form id='add_count' action="{% url 'change_count' ct_model=item.content_object.category slug=item.content_object.id %}" method="POST">
                 {% csrf_token %}
               <span class="minus">
@@ -44,19 +45,28 @@
               </span>
                 <input type="submit" class="btn btn-primary" value="Изменить кол-во">
                 </form>
-            </div>
+            </div> -->
 
             <div class="price">
               {{ item.final_price }} руб
             </div>
-            <form class='removingForm' action="{% url 'remove_from_cart' ct_model=item.content_object.category slug=item.content_object.id %}" method="POST">
+            <div class='form_wrapper'>
+            <form class='removingForm'  
+            method='POST' 
+            action="{% url 'remove_from_cart' ct_model=item.content_object.category slug=item.content_object.id %}">
+            <!-- {% url 'remove_from_cart' ct_model=item.content_object.category slug=item.content_object.id %} -->
+            <!-- <form class='removingForm'   method="POST" action=""> -->
               {% csrf_token %}
-              <button type='submit' >убрать товар из корзины</button>
+              <button class='removingButton' type='submit' >убрать товар из корзины</button>
             </form>
+            </div>
           </div>
-            {% endfor %}
+          {% endfor %}
           </div>
         </div>
+        
+
+
         <div class="overall">
           <div class="price">
 
@@ -133,7 +143,7 @@
           <div class="finalPrice">
             <span>Итого к оплате: </span>
             <p>
-              {{ cart.final_price }} руб.
+              14 990 руб.
             </p>
           </div>
 
@@ -152,25 +162,96 @@
 
   <script>
 
-    let removingForms = document.querySelectorAll('.removingForm')
+    let removingButtons = document.querySelectorAll('.basketItem .removingButton')
+    let Items = document.querySelectorAll('.basketItem')
+    let removingForms = document.querySelectorAll('.basketItem .removingForm')
 
-    console.log(removingForms)
+
+    
+    let updateArr = (index, nodeList) => {
+      let arr = Array.from(nodeList)
+      arr.splice(index, 1)
+      return arr
+    }
+
+
+
+
+
+
+   
+    
+
+
 
     $(function(){
-      //removingForms.forEach((form) => {
+
+      let rerenderGoods = (Arr) => {
+        let wrapper = document.querySelector('.items')
+        wrapper.innerHTML = ''
+        for (let i = 0; i < Arr.length; i++){
+          let Item = document.createElement('div')
+          Item.className = 'basketItem'
+          let img = document.createElement('img')
+          let divTitle = document.createElement('div')
+          divTitle.className = 'title'
+          let spanCat = document.createElement('span')
+          let pTitle = document.createElement('p')
+          let divPrice = document.createElement('div')
+          divPrice.className = 'price'
+          let formWrapper = document.createElement('div')
+          formWrapper.className = 'form_wrapper'
+          
+  
+          
+          let picWay = Arr[i].children[0].getAttribute('src') //1
+  
+          img.src = picWay
+  
+          let title = Arr[i].children[1].children[1].innerHTML, //2
+          cat = Arr[i].children[1].children[0].innerHTML
+  
+          spanCat.innerHTML = cat
+          pTitle.innerHTML = title
+          divTitle.appendChild(spanCat)
+          divTitle.appendChild(pTitle)
+  
+          let price = Arr[i].children[2].innerHTML                        //3
+          divPrice.innerHTML = price
+  
+          //console.log(form)
+          let form = Arr[i].children[3].innerHTML
+          formWrapper.innerHTML = form
+  
+          Item.appendChild(img)
+          Item.appendChild(divTitle)
+          Item.appendChild(divPrice)
+          Item.appendChild(formWrapper)
+  
+  
+         // Item.innerHTML = Arr
+          wrapper.appendChild(Item)
+        }
+    
+      }
+
         $('.removingForm').submit(function(event){
           event.preventDefault();
           var currentForm = $(this);
           var posting = $.post(currentForm.attr('action'), currentForm.serialize());
   
           posting.done(function(data){
-            alert('Удалил!')
+            let indeX = currentForm.parent().parent().index()
+            console.log(indeX)
+            let arr = Array.from(Items)
+            arr.splice(indeX, 1)
+            rerenderGoods(arr)
+            alert('Удалено')
           })
           posting.fail(function(data){
             console.log('нет')
           })
         })
-      //})
     })
 
 

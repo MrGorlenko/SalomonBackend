@@ -342,7 +342,7 @@
               {% endif %}
             {% endfor %}
 
-            <form id="buy_on_click" action="{% url 'add_to_cart' ct_model=good.category slug=good.id %}" method="POST">
+            <form class='buy_on_click' id="buy_on_click" action="{% url 'add_to_cart' ct_model=good.category slug=good.id %}" method="POST">
               {% csrf_token %}
               <button class='gold one-click-button' type="submit">Купить в 1 клик</button>
             </form>
@@ -536,7 +536,7 @@
 </script>
 <script>
 $(function() {
-    $("#buy_on_click").submit(function(event) {
+    $(".buy_on_click").submit(function(event) {
         // Stop form from submitting normally
         event.preventDefault();
         var friendForm = $(this);
@@ -544,6 +544,7 @@ $(function() {
         var posting = $.post( friendForm.attr('action'), friendForm.serialize() );
         // if success:
         posting.done(function(data) {
+          alert('Товар добавлен в корзину!')
             // success actions, maybe change submit button to 'friend added' or whatever
         });
         // if failure:

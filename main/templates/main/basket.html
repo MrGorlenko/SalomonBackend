@@ -49,9 +49,7 @@
             <div class="price">
               {{ item.final_price }} руб
             </div>
-            <form class='removingForm'  
-            method='POST' 
-            action="{% url 'remove_from_cart' ct_model=item.content_object.category slug=item.content_object.id %}">
+            <form class='removingForm' action="{% url 'remove_from_cart' ct_model=item.content_object.category slug=item.content_object.id %}" method="POST">
               {% csrf_token %}
               <button type='submit' >убрать товар из корзины</button>
             </form>
@@ -59,8 +57,6 @@
             {% endfor %}
           </div>
         </div>
-
-
         <div class="overall">
           <div class="price">
 
@@ -165,7 +161,7 @@
         $('.removingForm').submit(function(event){
           event.preventDefault();
           var currentForm = $(this);
-          var posting = $.post(currentForm.attr('actiion'), currentForm.serialize());
+          var posting = $.post(currentForm.attr('action'), currentForm.serialize());
   
           posting.done(function(data){
             alert('Удалил!')

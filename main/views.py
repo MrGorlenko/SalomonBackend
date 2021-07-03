@@ -1,6 +1,5 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views import View
 from django.views.generic import DetailView, View, CreateView, FormView, UpdateView
 from main.models import *
 from main.mixins import *

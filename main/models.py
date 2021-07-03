@@ -23,10 +23,14 @@ class Slides(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+    class Meta:
+        verbose_name = 'Слайдеры'
+        verbose_name_plural = 'Слайдеры'
+
 
 class GoodsCategory(models.Model):
-    cat = models.CharField(max_length=50)
-    slug = models.SlugField(unique=True, null=True)
+    cat = models.CharField(max_length=50, verbose_name='Категория')
+    slug = models.SlugField(unique=True, null=True, verbose_name='Ссылка')
 
     def __str__(self):
         return f'{self.cat}'
@@ -34,22 +38,38 @@ class GoodsCategory(models.Model):
     def get_absolute_url(self):
         return get_product_url(self, 'item')
 
+    class Meta:
+        verbose_name = 'Категории товаров'
+        verbose_name_plural = 'Категории товаров'
+
 
 class Good(models.Model):
-    category = models.ForeignKey(GoodsCategory, related_name='category', on_delete=models.CASCADE)
+    category = models.ForeignKey(GoodsCategory,
+                                 related_name='category',
+                                 on_delete=models.CASCADE,
+                                 verbose_name='Категория'
+                                 )
     id = models.BigAutoField(primary_key=True)
-    slug = models.SlugField(unique=True, null=True)
-    title = models.CharField(max_length=50, default='Matress')
-    rigidity = models.CharField(max_length=50, default='Soft')
-    weight = models.BigIntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=20)
-    old_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=20)
-    popularity = models.IntegerField(blank=True, default=1)
-    quolity = models.IntegerField(blank=True, default=1)
-    description = RichTextField(blank=True, default='')
-    characters = RichTextField(blank=True, default='')
-    feedbacks = RichTextField(blank=True, default='')
-    image_for_cart = models.ImageField(blank=True)
+    slug = models.SlugField(unique=True, null=True, verbose_name='Ссылка')
+    title = models.CharField(max_length=50, verbose_name='Название товара')
+    rigidity = models.CharField(max_length=50, verbose_name='Жесткость')
+    weight = models.BigIntegerField(verbose_name='Масса')
+    price = models.DecimalField(max_digits=10,
+                                decimal_places=2,
+                                default=20,
+                                verbose_name='Цена'
+                                )
+    old_price = models.DecimalField(max_digits=10,
+                                    decimal_places=2,
+                                    blank=True,
+                                    default=20,
+                                    verbose_name='Старая цена')
+    popularity = models.IntegerField(blank=True, default=1, verbose_name='Популярность')
+    quolity = models.IntegerField(blank=True, default=1, verbose_name='Качество')
+    description = RichTextField(blank=True, verbose_name='Описание')
+    characters = RichTextField(blank=True, verbose_name='Характеристики')
+    feedbacks = RichTextField(blank=True, verbose_name='Отзывы')
+    image_for_cart = models.ImageField(blank=True, verbose_name='Картинка для корзины')
 
     def __str__(self):
         return f'{self.title}'
@@ -57,41 +77,78 @@ class Good(models.Model):
     def get_absolute_url(self):
         return get_product_url(self, 'item')
 
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товар'
+
 
 class Goods_Images(models.Model):
     prop = models.ForeignKey(Good, related_name='Image', on_delete=models.CASCADE)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(blank=True, verbose_name='Изображение')
 
     def __str__(self):
         return self.prop.title
 
+    class Meta:
+        verbose_name = 'Картинка товара'
+        verbose_name_plural = 'Картинка товара'
+
 
 class Goods_Sizes(models.Model):
     prop = models.ForeignKey(Good, related_name='Size', on_delete=models.CASCADE)
-    size = models.CharField(max_length=50, blank=True)
+    size = models.CharField(max_length=50, blank=True, verbose_name='Размер')
+
+    class Meta:
+        verbose_name = 'Размер товара'
+        verbose_name_plural = 'Размер товара'
 
 
 class Goods_Icons(models.Model):
     prop = models.ForeignKey(Good, related_name='Icons', on_delete=models.CASCADE)
-    icons = models.ImageField(blank=True)
+    icons = models.ImageField(blank=True, verbose_name='Иконки')
+
+    class Meta:
+        verbose_name = 'Иконка товара'
+        verbose_name_plural = 'Товара товара'
 
 
 class Goods_Height(models.Model):
     prop = models.ForeignKey(Good, related_name='Height', on_delete=models.CASCADE)
-    height = models.BigIntegerField(blank=True, default=20)
+    height = models.BigIntegerField(blank=True, default=20, verbose_name='Высота')
+
+    class Meta:
+        verbose_name = 'Высота товара'
+        verbose_name_plural = 'Высота товара'
 
 
 class Goods_Cart(models.Model):
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE, null=True)
     cart = models.ForeignKey('Cart', verbose_name='Корзина', on_delete=models.CASCADE,
                              related_name='related_products')
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
-    object_id = models.PositiveIntegerField(null=True)
+    content_type = models.ForeignKey(ContentType,
+                                     on_delete=models.CASCADE,
+                                     null=True,
+                                     verbose_name='Тип содержимого'
+                                     )
+    object_id = models.PositiveIntegerField(null=True, verbose_name='ID объекта')
     content_object = GenericForeignKey('content_type', 'object_id')
-    qty = models.PositiveIntegerField(default=1)
-    final_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=20)
-    old_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=20)
-    sale = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=20)
+    qty = models.PositiveIntegerField(default=1, verbose_name='Количество товара')
+    final_price = models.DecimalField(max_digits=10,
+                                      decimal_places=2,
+                                      blank=True, default=20,
+                                      verbose_name='Итоговая цена')
+    old_price = models.DecimalField(max_digits=10,
+                                    decimal_places=2,
+                                    blank=True,
+                                    default=20,
+                                    verbose_name='Старая цена'
+                                    )
+    sale = models.DecimalField(max_digits=10,
+                               decimal_places=2,
+                               blank=True,
+                               default=20,
+                               verbose_name='Скидка'
+                               )
 
     def __str__(self):
         return 'Продукт: {}'.format(self.content_object.title)
@@ -102,23 +159,46 @@ class Goods_Cart(models.Model):
         self.sale = self.qty * self.content_object.old_price - self.qty * self.content_object.price
         super().save(*args, **kwargs)
 
+    class Meta:
+        verbose_name = 'Корзина товара'
+        verbose_name_plural = 'Корзина товара'
+
 
 class Customer(models.Model):
-    session_id = models.GenericIPAddressField(max_length=40, null=True)
+    session_id = models.GenericIPAddressField(max_length=40,
+                                              null=True,
+                                              verbose_name='IP пользователя'
+                                              )
 
     def __str__(self):
         return str(self.session_id)
 
+    class Meta:
+        verbose_name = 'IP пользователя товара'
+        verbose_name_plural = 'IP пользователя товара'
+
 
 class Cart(models.Model):
     owner = models.ForeignKey('Customer', null=True, verbose_name='Владелец', on_delete=models.CASCADE)
-    products = models.ManyToManyField(Goods_Cart, blank=True, related_name='related_cart')
-    total_products = models.PositiveIntegerField(default=0)
-    final_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
-    in_order = models.BooleanField(default=False)
-    for_anonymous_users = models.BooleanField(default=False)
-    old_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
-    sale = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
+    products = models.ManyToManyField(Goods_Cart, blank=True,
+                                      related_name='related_cart', verbose_name='Товары')
+    total_products = models.PositiveIntegerField(default=0, verbose_name='Количество товара')
+    final_price = models.DecimalField(max_digits=10,
+                                      decimal_places=2,
+                                      blank=True, default=0,
+                                      verbose_name='Итоговая цена')
+    in_order = models.BooleanField(default=False, verbose_name='Занятая корзина')
+    for_anonymous_users = models.BooleanField(default=False, verbose_name='Для анонимов')
+    old_price = models.DecimalField(max_digits=10,
+                                    decimal_places=2,
+                                    blank=True,
+                                    default=0,
+                                    verbose_name='Старая цена')
+    sale = models.DecimalField(max_digits=10,
+                               decimal_places=2,
+                               blank=True,
+                               default=0,
+                               verbose_name='Скидка')
 
     def __str__(self):
         return str(self.id)
@@ -137,3 +217,7 @@ class Cart(models.Model):
             self.sale = 0
         self.total_products = cart_data['id__count']
         super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзина'

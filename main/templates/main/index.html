@@ -341,30 +341,16 @@
                 <span class='d-none pic'>{{ slide.image.url }}</span>
               {% endif %}
             {% endfor %}
-            <span class='d-none cat'>{{good.category}}</span>
-            <span class='d-none rem'>{% static 'img/removeItem.svg' %}</span>
-            <span class='d-none oldPr'>{{good.old_price}}</span>
 
-            <div class='d-none description'>
-              {{good.description|safe}}
-            </div>
-
-            <div class='d-none characters'>
-              {{good.characters|safe}}
-            </div>
-
-            <div class="d-none feedbacks">
-              {{good.feedbacks|safe}}
-            </div>
             <form id="buy_on_click" action="{% url 'add_to_cart' ct_model=good.category slug=good.id %}" method="POST">
               {% csrf_token %}
-              <button type="submit">Купить в один клик</button>
+              <button class='gold one-click-button' type="submit">Купить в 1 клик</button>
             </form>
 
-          <!-- <div class='compare d-flex align-items-center'>
+           <div class='compare d-flex align-items-center'>
             <img src="{% static 'img/compareGold.svg' %}" alt="">
             Сравнить
-          </div> -->
+          </div> 
 
         </div>
         <p class="d-none quol">{{good.quolity}}</p>
@@ -548,6 +534,7 @@
   document.querySelector('#qoulSort').addEventListener('click', sortingByQuol)
 
 </script>
+<script>
 $(function() {
     $("#buy_on_click").submit(function(event) {
         // Stop form from submitting normally

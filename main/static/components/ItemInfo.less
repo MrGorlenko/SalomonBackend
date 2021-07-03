@@ -51,17 +51,39 @@
 
   ul {
     width: calc(100% - 80px);
-    padding-left: 40px;
-    padding-right: 40px;
+
     li{
       list-style-type: none;
       color: @goldColor;
+
       .select{
         border: 1px solid #8E9BA7;
         border-radius: 50px;
         width: 90px;
         color: #fff;
+
+        ul{
+          left: -1px;
+          width: 100%;
+          li{
+            // padding-left: 40px;
+          // padding-right: 40px;
+            // width: 100%;
+            font-size: 10px;
+            color: #8E9BA7;
+            padding-left: 8px;
+
+            height: auto;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    text-align: center;
+          }
+        }
       }
+      .selected{
+        border-radius: 25px 25px 0 0;
+      }
+
     }
   }
 
@@ -122,4 +144,6 @@
       margin-bottom: 0;
     }
   }
+
+
 }

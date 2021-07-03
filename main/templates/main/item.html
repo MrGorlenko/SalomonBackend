@@ -117,21 +117,21 @@
           </li>
         </ul>
 
-        <div class="price d-flex">
-          <p class="current">{{item.price}}</p>
-          <p class="old">{{item.old_price}}</p> 
+        <div class="price d-flex flex-direction-column">
+          <p class="current">{{item.price}} руб.</p>
+          <p class="old">{{item.old_price}} руб.</p> 
         </div>
 
-        <form id="buy" action="{% url 'add_to_cart' ct_model=item.category slug=item.id %}" method="POST">
+        <form id="buy_on_click" action="{% url 'add_to_cart' ct_model=item.category slug=item.id %}" method="POST">
           {% csrf_token %}
-            <button type="submit">Купить</button>
+            <button class='red-button' type="submit">Купить</button>
         </form>
 
 
-        <form id='buy_on_click' action="{% url 'add_to_cart' ct_model=item.category slug=item.id %}" method="POST">
+        {% comment %} <form id='buy_on_click' action="{% url 'add_to_cart' ct_model=item.category slug=item.id %}" method="POST">
           {% csrf_token %}
             <button type="submit">Купить в один клик</button>
-        </form>
+        </form> {% endcomment %}
       </div>
     </div>
   </section>
@@ -1045,8 +1045,6 @@
   </section>
 
 
-
-
   <script>
 $(function() {
     $("#buy_on_click").submit(function(event) {
@@ -1057,6 +1055,7 @@ $(function() {
         var posting = $.post( friendForm.attr('action'), friendForm.serialize() );
         // if success:
         posting.done(function(data) {
+          alert('товар добавлен в корзину')
             // success actions, maybe change submit button to 'friend added' or whatever
         });
         // if failure:

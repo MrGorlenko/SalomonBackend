@@ -98,7 +98,19 @@ const swiper7 = new Swiper('.swiper-container7', {
   },
 })
 
-
+const swiper8 = new Swiper('.swiper-container8', {
+  pagination : {
+    el : '.custom-pagination',
+    bulletClass: 'pagination-regular',
+    bulletActiveClass: 'pagination-active',
+    clickable: true,
+    type: 'bullets',
+  },
+  navigation: {
+    nextEl: '.slider__arrow .next',
+    prevEl: '.slider__arrow .prev'
+  }
+})
 
 const swiper9 = new Swiper('.swiper-container9', {
   navigation: {

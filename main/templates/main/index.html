@@ -342,16 +342,18 @@
               {% endif %}
             {% endfor %}
               
-            {% comment %} INPUT WITH HEIGHT {% endcomment %}
-              <input hidden name='goodsHEIGHT' class='goodsHEIGHT' type="text"> 
-            {% comment %} INPUT WITH HEIGHT {% endcomment %}
 
-            {% comment %} INPUT WITH SIZE {% endcomment %}
-              <input hidden name='goodsSIZE' class='goodsSIZE' type="text"> 
-            {% comment %} INPUT WITH SIZE {% endcomment %}
+
+
 
             <form class='buy_on_click' action="{% url 'add_to_cart' ct_model=good.category slug=good.id %}" method="POST">
               {% csrf_token %}
+            {% comment %} INPUT WITH HEIGHT {% endcomment %}
+              <input hidden name='goodsHEIGHT' class='goodsHEIGHT' type="text"> 
+            {% comment %} INPUT WITH HEIGHT {% endcomment %}
+            {% comment %} INPUT WITH SIZE {% endcomment %}
+              <input hidden name='goodsSIZE' class='goodsSIZE' type="text"> 
+            {% comment %} INPUT WITH SIZE {% endcomment %}
               <button class='gold one-click-button' type="submit">Купить в 1 клик</button>
             </form>
 
@@ -581,10 +583,12 @@ heightButtons.forEach((btns, index) => {
           btns.children[i].className = ''
         } else {
           btns.children[i].className = 'active'
-      btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value = btns.children[i].innerHTML
+    //  btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value = btns.children[i].innerHTML
+    btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value = btns.children[i].innerHTML
         }
       }
       console.log(btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value)
+     // console.log(btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value)
     }
 })
   </script>

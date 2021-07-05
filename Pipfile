@@ -10,6 +10,8 @@ pillow = "*"
 django-richtextfield = "*"
 django = "*"
 django-mathfilters = "*"
+django-jet = "*"
+six = "*"
 
 [requires]
 python_version = "3.9"

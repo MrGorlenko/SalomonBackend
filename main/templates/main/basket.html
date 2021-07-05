@@ -54,8 +54,6 @@
             <form class='removingForm'  
             method='POST' 
             action="{% url 'remove_from_cart' ct_model=item.content_object.category slug=item.content_object.id %}">
-            <!-- {% url 'remove_from_cart' ct_model=item.content_object.category slug=item.content_object.id %} -->
-            <!-- <form class='removingForm'   method="POST" action=""> -->
               {% csrf_token %}
               <button class='removingButton' type='submit' >убрать товар из корзины</button>
             </form>
@@ -63,38 +61,39 @@
           </div>
           {% endfor %}
           </div>
+          <!-- <div class="overall">
+            <div class="price">
+  
+              <p class="current">
+                {{ cart.final_price }} руб.
+              </p>
+              <p class="old">
+                {{ cart.old_price }} руб.
+              </p>
+              <div class="discount">
+                -{{ cart.sale }} руб.
+              </div>
+  
+            </div>
+            <button class="red-button">
+              Оформить заказ
+            </button>
+            <div class="why">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 0C3.58892 0 0 3.58868 0 8C0 12.4113 3.58892 16 8 16C12.4111 16 16 12.4113 16 8C16 3.58868 12.4111 0 8 0ZM8 15.0154C4.13169 15.0154 0.984615 11.8683 0.984615 8C0.984615 4.13169 4.13169 0.984615 8 0.984615C11.8683 0.984615 15.0154 4.13169 15.0154 8C15.0154 11.8683 11.8683 15.0154 8 15.0154Z" fill="#F7F3E4"/>
+                <path d="M8.12807 5.63348C8.58282 5.63348 8.95146 5.26484 8.95146 4.81009C8.95146 4.35535 8.58282 3.98671 8.12807 3.98671C7.67333 3.98671 7.30469 4.35535 7.30469 4.81009C7.30469 5.26484 7.67333 5.63348 8.12807 5.63348Z" fill="#F7F3E4"/>
+                <path d="M7.91028 6.9765C7.63852 6.9765 7.41797 7.19706 7.41797 7.46881V11.6534C7.41797 11.9252 7.63852 12.1457 7.91028 12.1457C8.18203 12.1457 8.40258 11.9252 8.40258 11.6534V7.46881C8.40258 7.19681 8.18203 6.9765 7.91028 6.9765Z" fill="#F7F3E4"/>
+                </svg>
+  
+              <p>Почему низкая цена?</p>
+  
+            </div>
+          </div> -->
         </div>
         
 
 
-        <div class="overall">
-          <div class="price">
 
-            <p class="current">
-              {{ cart.final_price }} руб.
-            </p>
-            <p class="old">
-              {{ cart.old_price }} руб.
-            </p>
-            <div class="discount">
-              -{{ cart.sale }} руб.
-            </div>
-
-          </div>
-          <button class="red-button">
-            Оформить заказ
-          </button>
-          <div class="why">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 0C3.58892 0 0 3.58868 0 8C0 12.4113 3.58892 16 8 16C12.4111 16 16 12.4113 16 8C16 3.58868 12.4111 0 8 0ZM8 15.0154C4.13169 15.0154 0.984615 11.8683 0.984615 8C0.984615 4.13169 4.13169 0.984615 8 0.984615C11.8683 0.984615 15.0154 4.13169 15.0154 8C15.0154 11.8683 11.8683 15.0154 8 15.0154Z" fill="#F7F3E4"/>
-              <path d="M8.12807 5.63348C8.58282 5.63348 8.95146 5.26484 8.95146 4.81009C8.95146 4.35535 8.58282 3.98671 8.12807 3.98671C7.67333 3.98671 7.30469 4.35535 7.30469 4.81009C7.30469 5.26484 7.67333 5.63348 8.12807 5.63348Z" fill="#F7F3E4"/>
-              <path d="M7.91028 6.9765C7.63852 6.9765 7.41797 7.19706 7.41797 7.46881V11.6534C7.41797 11.9252 7.63852 12.1457 7.91028 12.1457C8.18203 12.1457 8.40258 11.9252 8.40258 11.6534V7.46881C8.40258 7.19681 8.18203 6.9765 7.91028 6.9765Z" fill="#F7F3E4"/>
-              </svg>
-
-            <p>Почему низкая цена?</p>
-
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -107,7 +106,7 @@
         <input type="text" class="input" placeholder="Номер телефона">
         <input type="text" class="input" placeholder="Email">
 
-        <div onClick='select9.changeState.call(select9)'
+        <!-- <div onClick='select9.changeState.call(select9)'
         class='select select9 selectWidget input'>
          <span>Способ доставки</span>
          <ul class='unactive'>
@@ -116,9 +115,9 @@
            <li onclick="select9.selectOption('Курьером')">
              Курьером</li>
          </ul>
-       </div>
+       </div> -->
 
-       <div onClick='select10.changeState.call(select10)'
+       <!-- <div onClick='select10.changeState.call(select10)'
        class='select select10 selectWidget input'>
         <span>Способ доставки</span>
         <ul class='unactive'>
@@ -127,7 +126,7 @@
           <li onclick="select10.selectOption('Курьером')">
             Курьером</li>
         </ul>
-        </div>
+        </div> -->
 
         <div class="annotation">
           <span class='red'>*</span>
@@ -143,7 +142,7 @@
           <div class="finalPrice">
             <span>Итого к оплате: </span>
             <p>
-              14 990 руб.
+              {{ cart.final_price }} руб.
             </p>
           </div>
 
@@ -186,7 +185,10 @@
 
     $(function(){
 
+      
+
       let rerenderGoods = (Arr) => {
+        let Items = document.querySelectorAll('.basketItem')
         let wrapper = document.querySelector('.items')
         wrapper.innerHTML = ''
         for (let i = 0; i < Arr.length; i++){
@@ -246,7 +248,8 @@
             let arr = Array.from(Items)
             arr.splice(indeX, 1)
             rerenderGoods(arr)
-            alert('Удалено')
+            //alert('Удалено')
+            $('#basketCounter')[0].innerHTML = ~~$('#basketCounter')[0].innerHTML - 1
           })
           posting.fail(function(data){
             console.log('нет')

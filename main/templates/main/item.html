@@ -128,10 +128,6 @@
         </form>
 
 
-        {% comment %} <form id='buy_on_click' action="{% url 'add_to_cart' ct_model=item.category slug=item.id %}" method="POST">
-          {% csrf_token %}
-            <button type="submit">Купить в один клик</button>
-        </form> {% endcomment %}
       </div>
     </div>
   </section>
@@ -1056,6 +1052,7 @@ $(function() {
         // if success:
         posting.done(function(data) {
           alert('товар добавлен в корзину')
+          $('#basketCounter')[0].innerHTML = ~~$('#basketCounter')[0].innerHTML + 1
             // success actions, maybe change submit button to 'friend added' or whatever
         });
         // if failure:

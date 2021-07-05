@@ -341,8 +341,16 @@
                 <span class='d-none pic'>{{ slide.image.url }}</span>
               {% endif %}
             {% endfor %}
+              
+            {% comment %} INPUT WITH HEIGHT {% endcomment %}
+              <input hidden name='goodsHEIGHT' class='goodsHEIGHT' type="text"> 
+            {% comment %} INPUT WITH HEIGHT {% endcomment %}
 
-            <form class='buy_on_click' id="buy_on_click" action="{% url 'add_to_cart' ct_model=good.category slug=good.id %}" method="POST">
+            {% comment %} INPUT WITH SIZE {% endcomment %}
+              <input hidden name='goodsSIZE' class='goodsSIZE' type="text"> 
+            {% comment %} INPUT WITH SIZE {% endcomment %}
+
+            <form class='buy_on_click' action="{% url 'add_to_cart' ct_model=good.category slug=good.id %}" method="POST">
               {% csrf_token %}
               <button class='gold one-click-button' type="submit">Купить в 1 клик</button>
             </form>
@@ -441,6 +449,9 @@
       selects[i].children[1].classList.remove('active')
      }
      selects[i].children[1].onclick = (event) => {
+       selects[i].parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsSIZE').value = event.target.innerHTML
+
+       console.log(selects[i].parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsSIZE').value)
        selects[i].children[0].innerText = event.target.innerHTML
        selects[i].classList.remove('selected')
      }
@@ -545,14 +556,37 @@ $(function() {
         // if success:
         posting.done(function(data) {
           alert('Товар добавлен в корзину!')
-            // success actions, maybe change submit button to 'friend added' or whatever
+          $('#basketCounter')[0].innerHTML = ~~$('#basketCounter')[0].innerHTML + 1
         });
         // if failure:
         posting.fail(function(data) {
             // 4xx or 5xx response, alert user about failure
         });
     });
+
 });
+  </script>
+
+  <script>
+  let heightButtons = document.querySelectorAll('.buttonsWidget')
+
+
+
+heightButtons.forEach((btns, index) => {
+    btns.children[0].className = 'active'
+    btns.onclick = () => {
+
+      for (let i = 0; i<btns.children.length; i++) {
+        if (btns.children[i].className == 'active'){
+          btns.children[i].className = ''
+        } else {
+          btns.children[i].className = 'active'
+      btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value = btns.children[i].innerHTML
+        }
+      }
+      console.log(btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value)
+    }
+})
   </script>
 
 {% endblock content %}

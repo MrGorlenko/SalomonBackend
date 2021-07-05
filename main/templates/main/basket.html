@@ -31,31 +31,30 @@
               </p>
             </div>
 
-            <!-- <div class="counter counter_gold">
-              <form id='add_count' action="{% url 'change_count' ct_model=item.content_object.category slug=item.content_object.id %}" method="POST">
-                {% csrf_token %}
+            <div class="counter counter_gold">
               <span class="minus">
-                -  
+                -
               </span>
               <span class="number">
-                <input type="number" min="1"  value="{{ item.qty }}" name="qty">
+                1
               </span>
               <span class="plus">
                 +
               </span>
-                <input type="submit" class="btn btn-primary" value="Изменить кол-во">
-                </form>
-            </div> -->
+              <!-- HIDDEN COUNTER INPUT  -->
+              <input hidden name='goodCount' class='hiddenInputCount' type="text">
+              <!-- HIDDEN COUNTER INPUT -->
+            </div>
 
             <div class="price">
-              {{ item.final_price }} руб
+              <span>{{ item.final_price }}</span> руб
             </div>
             <div class='form_wrapper'>
             <form class='removingForm'  
             method='POST' 
             action="{% url 'remove_from_cart' ct_model=item.content_object.category slug=item.content_object.id %}">
               {% csrf_token %}
-              <button class='removingButton' type='submit' >убрать товар из корзины</button>
+              <button class='removingButton' type='submit' ></button>
             </form>
             </div>
           </div>
@@ -106,28 +105,6 @@
         <input type="text" class="input" placeholder="Номер телефона">
         <input type="text" class="input" placeholder="Email">
 
-        <!-- <div onClick='select9.changeState.call(select9)'
-        class='select select9 selectWidget input'>
-         <span>Способ доставки</span>
-         <ul class='unactive'>
-           <li onclick="select9.selectOption('Самовывоз')">
-             Самовывоз</li>
-           <li onclick="select9.selectOption('Курьером')">
-             Курьером</li>
-         </ul>
-       </div> -->
-
-       <!-- <div onClick='select10.changeState.call(select10)'
-       class='select select10 selectWidget input'>
-        <span>Способ доставки</span>
-        <ul class='unactive'>
-          <li onclick="select10.selectOption('Самовывоз')">
-            Самовывоз</li>
-          <li onclick="select10.selectOption('Курьером')">
-            Курьером</li>
-        </ul>
-        </div> -->
-
         <div class="annotation">
           <span class='red'>*</span>
           <span>- Обязательные для заполнения поля отмечены звездочкой</span>
@@ -142,7 +119,8 @@
           <div class="finalPrice">
             <span>Итого к оплате: </span>
             <p>
-              {{ cart.final_price }} руб.
+              <span id='finalPrice'>{{ cart.final_price }}</span>
+               руб.
             </p>
           </div>
 
@@ -156,7 +134,6 @@
     </div>
   </section>
 
-  <!-- base -->
     
 
   <script>
@@ -164,7 +141,25 @@
     let removingButtons = document.querySelectorAll('.basketItem .removingButton')
     let Items = document.querySelectorAll('.basketItem')
     let removingForms = document.querySelectorAll('.basketItem .removingForm')
+    let conunters = document.querySelectorAll('.counter')
 
+    conunters.forEach((counter) => {
+      counter.onclick = () => {
+        if (event.target.className == 'plus') {
+
+          event.target.parentNode.querySelector('.number').innerHTML  =  ~~event.target.parentNode.querySelector('.number').innerHTML + 1 
+          event.target.parentNode.querySelector('.hiddenInputCount').value = event.target.parentNode.querySelector('.number').innerHTML
+          console.log(event.target.parentNode.querySelector('.hiddenInputCount').value)
+        } 
+        if (event.target.className == 'minus') {
+          if (~~event.target.parentNode.querySelector('.number').innerHTML > 1){
+            event.target.parentNode.querySelector('.number').innerHTML  =  ~~event.target.parentNode.querySelector('.number').innerHTML - 1 
+            event.target.parentNode.querySelector('.hiddenInputCount').value = event.target.parentNode.querySelector('.number').innerHTML
+            console.log(event.target.parentNode.querySelector('.hiddenInputCount').value)
+          }
+        }
+      }
+    })
 
     
     let updateArr = (index, nodeList) => {
@@ -172,14 +167,6 @@
       arr.splice(index, 1)
       return arr
     }
-
-
-
-
-
-
-   
-    
 
 
 
@@ -245,17 +232,21 @@
           posting.done(function(data){
             let indeX = currentForm.parent().parent().index()
             console.log(indeX)
-            //let arr = Array.from(Items)
-            //arr.splice(indeX, 1)
-            //rerenderGoods(arr)
             currentForm.parent().parent().parent().children().eq(indeX).remove()
-            alert('Удалено')
+           // alert('Удалено')
+
+           let priceOfRemoved = ~~currentForm.parent().parent()[0].querySelector('.price span').innerHTML
+         //  console.log(~~currentForm.parent().parent()[0].querySelector('.price span').innerHTML)
+          // console.log($('#finalPrice')[0].innerHTML)
             $('#basketCounter')[0].innerHTML = ~~$('#basketCounter')[0].innerHTML - 1
+            $('#finalPrice')[0].innerHTML = ~~$('#finalPrice')[0].innerHTML - priceOfRemoved
           })
           posting.fail(function(data){
             console.log('нет')
           })
         })
+
+
     })
 
 

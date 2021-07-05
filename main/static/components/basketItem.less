@@ -8,6 +8,16 @@
   padding: 23px 32px;
   margin-bottom: 24px;
   width: calc(100% - 64px);
+  .removingButton{
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    // background-color: red;
+    border-radius: 0;
+    border: none;
+    background-image: url('/static/img/garbage.svg');
+    background-size: cover;
+  }
   img{
     width: 129px;
     height: 96px;
@@ -31,6 +41,7 @@
     }
   }
   .title{
+    width: 250px;
     @media (max-width: @mobileResolution){
       width: 50%;
       margin-left: 15px;
@@ -105,6 +116,7 @@
 
   .price{
     font-weight: 600;
+    width: 160px;
     font-size: 21px;
     line-height: 26px;
     color: #242424;

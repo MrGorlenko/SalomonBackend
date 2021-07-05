@@ -48,6 +48,8 @@ class Items_Details(CartMixin, DetailView):
         context = super(Items_Details, self).get_context_data(**kwargs)
         context['images'] = Goods_Images.objects.all()
         context['ct_model'] = self.model
+        context['height'] = Goods_Height.objects.all()
+        context['sizes'] = Goods_Sizes.objects.all()
         return context
 
     context_object_name = 'item'

@@ -33,6 +33,36 @@
     }
   }
 
+
+  .buttonsWidget{
+    justify-content: space-between;
+    button{
+      width: 70.5px;
+      height: 34px;
+      border-radius: 50px;
+      border: 1.5px solid #B0BDC9;
+      background: none;
+      color: #B0BDC9;
+      transition: @transition;
+      @media screen and (max-width: @smallDesctopResolution) {
+        width: 52px;
+      }
+      &:first-child{
+        margin-right: 5px;
+      }
+      &:hover{
+        color: #fff;
+        border: 1.5px solid #fff;
+        transition: @transition;
+      }
+    }
+
+    .active{
+      border: 1.5px solid #fff;
+      color: #fff;
+    }
+  }
+
   h3{
     text-align: center;
     color: @goldColor;
@@ -55,6 +85,12 @@
     li{
       list-style-type: none;
       color: @goldColor;
+      margin-bottom: 10px;
+
+      img, svg{
+        width: 16px;
+        height: 16px;
+      }
 
       .select{
         border: 1px solid #8E9BA7;
@@ -72,6 +108,7 @@
             font-size: 10px;
             color: #8E9BA7;
             padding-left: 8px;
+            margin-bottom: 0;
 
             height: auto;
     padding-top: 11px;
@@ -104,6 +141,9 @@
       text-transform: uppercase;
       color: #fff;
       margin-right: 10px;
+      @media screen and (max-width: @smallDesctopResolution){
+        font-size: 28px;
+      }
       @media (max-width: @mobileResolution){
         margin-right: 0;
         font-size: 26px;

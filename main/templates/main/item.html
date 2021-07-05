@@ -23,6 +23,8 @@
             <div style='background-image: url("{{slide.image.url}}");' class="swiper-slide"></div>
             {% endif %}
             {% endfor %}
+
+
           </div>
           <div class="custom-pagination"></div>
           <div class="slider__arrow">
@@ -77,9 +79,21 @@
       </div>
       <div class="ItemInfo">
         <img class='logo' src="{% static 'img/logo2.svg' %}" alt="">
-        <h3>Матрас <br> {{item.title}} </h3>
+        <h3>{{item.category}}<br> {{item.title}} </h3>
         <img class='line' src="{% static 'img/goldenDottenLineHorizontal.svg' %}" alt="">
         <ul>
+          <li class='d-flex-align-between'>
+            <div class='d-flex'><img src="{% static 'img/heightIcon.svg' %}" alt=""> Высота</div>
+              <div style='justify-content:space-between' class="buttonsWidget d-flex">
+                {% for height in height %}
+                  {% if height.prop.title == item.title %}
+                    <button >
+                      {{height.height}}
+                    </button>
+                  {% endif %}
+                {% endfor %}
+              </div>
+          </li>
           <li class='d-flex-align-between'>
             <div>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -99,23 +113,22 @@
                 </linearGradient>
                 </defs>
                 </svg>
-  
               Размер
             </div>
             <div onClick='select8.changeState.call(select8)'
              class='select select8 selectWidget'>
               <span>Выбрать</span>
               <ul class='unactive'>
-                <li onclick="select8.selectOption('Большой')">
-                  Большой</li>
-                <li onclick="select8.selectOption('Средний')">
-                  Средний</li>
-                <li onclick="select8.selectOption('Маленький')">
-                  Маленький</li>
+                {% for size in sizes %}
+                  {% if size.prop.title == item.title %}
+                    <li class='sizeSelects' >{{size.size}}</li>
+                  {% endif %}
+                {% endfor %}
               </ul>
             </div>
           </li>
         </ul>
+
 
         <div class="price d-flex flex-direction-column">
           <p class="current">{{item.price}} руб.</p>
@@ -125,6 +138,12 @@
         <form id="buy_on_click" action="{% url 'add_to_cart' ct_model=item.category slug=item.id %}" method="POST">
           {% csrf_token %}
             <button class='red-button' type="submit">Купить</button>
+            {% comment %} INPUT WITH HEIGHT {% endcomment %}
+            <input hidden name='goodsHEIGHT' class='goodsHEIGHT' type="text">
+          {% comment %} INPUT WITH HEIGHT {% endcomment %}
+          {% comment %} INPUT WITH SIZE {% endcomment %}
+            <input hidden name='goodsSIZE' class='goodsSIZE' type="text">
+          {% comment %} INPUT WITH SIZE {% endcomment %}
         </form>
 
 
@@ -1062,6 +1081,38 @@ $(function() {
     });
 });
   </script>
+
+  <script>
+    let heightButtons = document.querySelectorAll('.buttonsWidget'),
+    sizeSelects = document.querySelectorAll('.sizeSelects')
+    
+    sizeSelects.forEach((select)=>{
+      select.onclick = () => {
+        document.querySelector('.select').children[0].innerHTML = select.innerHTML
+        document.querySelector('.goodsSIZE').value = select.innerHTML
+        //console.log(document.querySelector('.goodsSIZE').value)
+      }
+    })
+  
+  
+  heightButtons.forEach((btns, index) => {
+      btns.children[0].className = 'active'
+      btns.onclick = () => {
+  
+        for (let i = 0; i<btns.children.length; i++) {
+          if (btns.children[i].className == 'active'){
+            btns.children[i].className = ''
+          } else {
+            btns.children[i].className = 'active'
+            event.target.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value = btns.children[i].innerHTML
+          }
+        }
+        
+       // console.log(event.target.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value)
+        
+      }
+  })
+    </script>
 
   {% endblock content %}
     

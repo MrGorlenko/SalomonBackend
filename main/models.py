@@ -149,6 +149,8 @@ class Goods_Cart(models.Model):
                                default=20,
                                verbose_name='Скидка'
                                )
+    height = models.IntegerField(null=True, default=0, verbose_name='Высота', blank=True)
+    size = models.CharField(max_length=50, blank=True, verbose_name='Размер')
 
     def __str__(self):
         return 'Продукт: {}'.format(self.content_object.title)

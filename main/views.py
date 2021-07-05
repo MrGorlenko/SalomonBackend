@@ -58,7 +58,6 @@ class Items_Details(CartMixin, DetailView):
 class Cart_View(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
-        print("Текущая сессия: {}".format(request.session.session_key))
         category = GoodsCategory.objects.all()
         images = Goods_Images.objects.all()
         context = {
@@ -76,13 +75,18 @@ class Cart_View(CartMixin, View):
 class Add_To_Cart(CartMixin, View):
 
     def post(self, request, *args, **kwargs):
+        height = request.POST.get('goodsHEIGHT')
+        size = request.POST.get('goodsSIZE')
+        print(height, size)
         ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
         product = Good.objects.get(pk=slug)
         cart_product, created = Goods_Cart.objects.get_or_create(
             user=self.cart.owner,
             cart=self.cart,
             content_type_id=1,
-            object_id=product.id
+            object_id=product.id,
+            height=int(height),
+            size=str(size)
         )
         if created:
             self.cart.products.add(cart_product)

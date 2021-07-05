@@ -245,10 +245,11 @@
           posting.done(function(data){
             let indeX = currentForm.parent().parent().index()
             console.log(indeX)
-            let arr = Array.from(Items)
-            arr.splice(indeX, 1)
-            rerenderGoods(arr)
-            //alert('Удалено')
+            //let arr = Array.from(Items)
+            //arr.splice(indeX, 1)
+            //rerenderGoods(arr)
+            currentForm.parent().parent().parent().children().eq(indeX).remove()
+            alert('Удалено')
             $('#basketCounter')[0].innerHTML = ~~$('#basketCounter')[0].innerHTML - 1
           })
           posting.fail(function(data){

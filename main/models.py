@@ -3,6 +3,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from djrichtextfield.models import RichTextField
 from django.urls import reverse
+from django.utils import timezone
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 def get_product_url(obj, viewname):
@@ -171,9 +173,10 @@ class Customer(models.Model):
                                               null=True,
                                               verbose_name='IP пользователя'
                                               )
+    orders = models.ManyToManyField('Order', verbose_name='Заказы покупателя', related_name='related_order')
 
     def __str__(self):
-        return str(self.session_id)
+        return str('Пользователь с IP-адресом {}'.format(self.session_id))
 
     class Meta:
         verbose_name = 'IP пользователя товара'
@@ -203,7 +206,7 @@ class Cart(models.Model):
                                verbose_name='Скидка')
 
     def __str__(self):
-        return str(self.id)
+        return str("Корзина №{}".format(self.id))
 
     def save(self, *args, **kwargs):
         cart_data = self.products.aggregate(models.Sum('final_price'), models.Count('id'))
@@ -223,3 +226,55 @@ class Cart(models.Model):
     class Meta:
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзина'
+
+
+class Order(models.Model):
+
+    STATUS_NEW = 'new'
+    STATUS_IN_PROGRESS = 'in_progress'
+    STATUS_READY = 'is_ready'
+    STATUS_COMPLETED = 'completed'
+
+    BUYING_TYPE_SELF = 'self'
+    BUYING_TYPE_DELIVERY = 'delivery'
+
+    STATUS_CHOICES = (
+        (STATUS_NEW, 'Новый заказ'),
+        (STATUS_IN_PROGRESS, 'Заказ в обработке'),
+        (STATUS_READY, 'Заказ готов'),
+        (STATUS_COMPLETED, 'Заказ выполнен')
+    )
+
+    BUYING_TYPE_CHOICES = (
+        (BUYING_TYPE_SELF, 'Самовывоз'),
+        (BUYING_TYPE_DELIVERY, 'Доставка')
+    )
+
+    name = models.CharField(null=True, max_length=100, verbose_name='Имя заказчика', blank=True)
+    telephone = PhoneNumberField(null=True, blank=True, unique=False)
+    email = models.EmailField(null=True, blank=True, verbose_name='Email Заказчика')
+    agreement = models.BooleanField(default=False, verbose_name='Соглашение с правилами')
+    customer = models.ForeignKey(Customer, verbose_name='Покупатель', related_name='related_orders', on_delete=models.CASCADE, null=True)
+    cart = models.ForeignKey(Cart, verbose_name='Корзина', on_delete=models.CASCADE, null=True, blank=True)
+    status = models.CharField(
+        max_length=100,
+        verbose_name='Статус заказ',
+        choices=STATUS_CHOICES,
+        default=STATUS_NEW
+    )
+    buying_type = models.CharField(
+        max_length=100,
+        verbose_name='Тип заказа',
+        choices=BUYING_TYPE_CHOICES,
+        default=BUYING_TYPE_SELF
+    )
+    comment = models.TextField(verbose_name='Комментарий к заказу', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now=True, verbose_name='Дата создания заказа')
+    order_date = models.DateField(verbose_name='Дата получения заказа', default=timezone.now)
+
+    def __str__(self):
+        return str("Заказ №{}".format(self.id))
+
+    class Meta:
+        verbose_name = 'Заказы'
+        verbose_name_plural = 'Заказы'

@@ -1,4 +1,4 @@
-from django.views.generic import View
+from django.views.generic import View, FormView
 from .models import *
 
 

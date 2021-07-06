@@ -19,6 +19,7 @@ from django.urls import path, include
 from main.views import *
 from django.conf.urls.static import static
 from django.conf import settings
+from jet.dashboard.dashboard_modules import google_analytics_views
 
 urlpatterns = [
     path(r'^jet/', include('jet.urls', 'jet')),

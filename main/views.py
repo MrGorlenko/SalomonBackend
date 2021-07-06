@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, View, CreateView, FormView, UpdateView
+from django.views.generic.edit import FormMixin
 from main.models import *
 from main.mixins import *
 from django.http import JsonResponse
@@ -73,13 +74,37 @@ class Cart_View(CartMixin, View):
             context=context
         )
 
+    def post(self, request, *args, **kwargs):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        customer = Customer.objects.get(session_id=ip)
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        email_order = request.POST.get('email')
+        comment = request.POST.get('comment')
+        order = Order.objects.create(
+            name=name,
+            telephone=phone,
+            email=email_order,
+            agreement=True,
+            cart=self.cart,
+            comment=comment,
+            customer=customer
+
+        )
+        customer.orders.add(order)
+        order.save()
+        return HttpResponseRedirect('/cart/')
+
 
 class Add_To_Cart(CartMixin, View):
 
     def post(self, request, *args, **kwargs):
         height = request.POST.get('goodsHEIGHT')
         size = request.POST.get('goodsSIZE')
-        print(height, size)
         ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
         product = Good.objects.get(pk=slug)
         cart_product, created = Goods_Cart.objects.get_or_create(
@@ -126,9 +151,7 @@ class Change_Count_Items(CartMixin, View):
             object_id=product.id
         )
         qty = int(request.POST.get('qty'))
-        print('Количество товара в корзине: ' + str(qty))
         cart_product.qty = qty
         cart_product.save()
-        print(cart_product)
         self.cart.save()
         return HttpResponseRedirect('/cart/')

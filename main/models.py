@@ -153,6 +153,7 @@ class Goods_Cart(models.Model):
                                )
     height = models.IntegerField(null=True, default=0, verbose_name='Высота', blank=True)
     size = models.CharField(max_length=50, blank=True, verbose_name='Размер')
+    publish_date = models.DateField(verbose_name='Дата', default=timezone.now)
 
     def __str__(self):
         return 'Продукт: {}'.format(self.content_object.title)
@@ -166,6 +167,13 @@ class Goods_Cart(models.Model):
     class Meta:
         verbose_name = 'Корзина товара'
         verbose_name_plural = 'Корзина товара'
+
+
+class Goods_Cart_Proxy(Goods_Cart):
+    class Meta:
+        proxy = True
+        verbose_name = 'Сводная таблица товара'
+        verbose_name_plural = 'Сводная таблица товара'
 
 
 class Customer(models.Model):
@@ -229,14 +237,13 @@ class Cart(models.Model):
 
 
 class Order(models.Model):
+    STATUS_NEW = 'Новый заказ'
+    STATUS_IN_PROGRESS = 'В процессе'
+    STATUS_READY = 'Готов'
+    STATUS_COMPLETED = 'Завершен'
 
-    STATUS_NEW = 'new'
-    STATUS_IN_PROGRESS = 'in_progress'
-    STATUS_READY = 'is_ready'
-    STATUS_COMPLETED = 'completed'
-
-    BUYING_TYPE_SELF = 'self'
-    BUYING_TYPE_DELIVERY = 'delivery'
+    BUYING_TYPE_SELF = 'Самовывоз'
+    BUYING_TYPE_DELIVERY = 'Доставка'
 
     STATUS_CHOICES = (
         (STATUS_NEW, 'Новый заказ'),
@@ -254,8 +261,10 @@ class Order(models.Model):
     telephone = PhoneNumberField(null=True, blank=True, unique=False)
     email = models.EmailField(null=True, blank=True, verbose_name='Email Заказчика')
     agreement = models.BooleanField(default=False, verbose_name='Соглашение с правилами')
-    customer = models.ForeignKey(Customer, verbose_name='Покупатель', related_name='related_orders', on_delete=models.CASCADE, null=True)
-    cart = models.ForeignKey(Cart, verbose_name='Корзина', on_delete=models.CASCADE, null=True, blank=True)
+    customer = models.ForeignKey(Customer, verbose_name='Покупатель', related_name='related_orders',
+                                 on_delete=models.CASCADE, null=True)
+    cart = models.ForeignKey(Cart, verbose_name='Корзина', on_delete=models.CASCADE, null=True, blank=True,
+                             related_name='Cart')
     status = models.CharField(
         max_length=100,
         verbose_name='Статус заказ',

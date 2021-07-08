@@ -432,9 +432,10 @@
 
 
 
-
   for (let i = 0; i<goods.length; i++){
 
+    //console.log(selects[i])
+selects[i].parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsSIZE').value = 'Не выбран'
    selects[i].onclick = function(){
      if (selects[i].children[1].classList.contains('unactive')){
       selects[i].classList.add('selected')
@@ -454,7 +455,7 @@
      }
    }
   }
-  
+
 
   catalogButtons.forEach((button, index)=> button.onclick = (event) => {
 
@@ -470,7 +471,7 @@
       for (let i=0; i<goods.length; i++){
 
         if (goods[i].classList.contains(`SaleGood_${catalogButtons[index].innerHTML}`)){
-      
+
           if (!goods[i].classList.contains('d-flex')){
             goods[i].classList.add('d-flex')
           }
@@ -481,7 +482,7 @@
           goods[i].classList.add('d-none')
           goods[i].classList.remove('d-flex')
         }
-   
+
 
     }
     } else {
@@ -571,6 +572,8 @@ $(function() {
 
 heightButtons.forEach((btns, index) => {
     btns.children[0].className = 'active'
+    //console.log(btns.children[0].innerHTML)
+    btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value = btns.children[0].innerHTML
     btns.onclick = () => {
 
       for (let i = 0; i<btns.children.length; i++) {
@@ -585,7 +588,9 @@ heightButtons.forEach((btns, index) => {
       console.log(btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value)
      // console.log(btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value)
     }
+    console.log(btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value)
 })
+
   </script>
 
 

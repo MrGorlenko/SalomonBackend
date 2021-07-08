@@ -1,0 +1,116 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'admin/css/changelists.css' %}">
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}">
+  {% endif %}
+  {% if cl.formset or action_form %}
+    <script src="{% url 'admin:jsi18n' %}"></script>
+  {% endif %}
+  {{ media.css }}
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-list{% endblock %}
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=cl.opts.app_label %}">{{ cl.opts.app_config.verbose_name }}</a>
+&rsaquo; {{ cl.opts.verbose_name_plural|capfirst }}
+</div>
+{% endblock %}
+{% endif %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content %}
+  <div id="content-main">
+    {% if cl.formset and cl.formset.errors %}
+        <p class="errornote">
+        {% if cl.formset.total_error_count == 1 %}{% translate "Please correct the error below." %}{% else %}{% translate "Please correct the errors below." %}{% endif %}
+        </p>
+        {{ cl.formset.non_form_errors }}
+    {% endif %}
+    <div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
+      <div class="changelist-form-container">
+        {% block search %}{% search_form cl %}{% endblock %}
+        {% block date_hierarchy %}{% if cl.date_hierarchy %}{% date_hierarchy cl %}{% endif %}{% endblock %}
+      </div>
+                    <div class="results">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="text">
+                                Название товара
+                                </div>
+                            </th>
+                        <th>
+                            <div class="text">
+                                <strong>Количество</strong>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="text">
+                                <strong>Высота</strong>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="text">
+                                <strong>Размер</strong>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="text">
+                                <strong>Цена</strong>
+                            </div>
+                        </th>
+                    </thead>
+                        <tbody>
+      {% for row in table %}
+      <tr>
+        <td> <strong> {{ row.content_object }} </strong> </td>
+        <td> <strong>{{ row.qty }} шт </strong>  </td>
+        <td> <strong> {{ row.height }} см</strong> </td>
+        <td> <strong> {{ row.size }} </strong>  </td>
+        <td> <strong> {{ row.sum }} руб </strong> </td>
+      </tr>
+       {% endfor %}
+      <tr style="font-weight:bold; border-top:2px solid #DDDDDD;">
+            <td> Итого </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> <strong> {{ summary_total.sum }} руб </strong></td>
+        </tr>
+    </tbody>
+                </table>
+                        </div>
+      {% block filters %}
+        {% if cl.has_filters %}
+          <div id="changelist-filter">
+            <h2>{% translate 'Filter' %}</h2>
+            {% if cl.has_active_filters %}<h3 id="changelist-filter-clear">
+              <a href="{{ cl.clear_all_filters_qs }}">&#10006; {% translate "Clear all filters" %}</a>
+            </h3>{% endif %}
+            {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
+          </div>
+        {% endif %}
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}

@@ -109,13 +109,16 @@
       .innerList{
         opacity: 0;
         transition: @transition;
-        border-radius: 0 0 6px 6px;
+        border-radius: 0 0 15px 15px;
         z-index: -1;
         position: absolute;
-        top: 50px;
-        left:0;
-        background-color: #221904;
-        width: 135px;
+        top: 47px;
+        left:-37px;
+        padding-left: 38px;
+        padding-right: 38px;
+        // background-color: #221904;
+        background: linear-gradient(180deg, #221904 0%, #31353D 100%);
+        width: 100%;
         // display: none;
         height: auto;
         -webkit-box-shadow: 0px 35px 39px 12px rgba(0, 0, 0, 0.43);
@@ -125,14 +128,15 @@
           display: block;
         }
         li{
-          background-color: #221904;
+          // background-color: #221904;
           margin-left: -9px;
           width: calc( 100% - 5px);
           padding-left: 9px;
           padding-right: 5px;
           height: 30px;
-          border-top: 1px solid #fff;
-          border-bottom: 1px solid #fff;
+          margin-bottom: 32px;
+          // border-top: 1px solid #fff;
+          // border-bottom: 1px solid #fff;
 
           a{
             color: #fff;
@@ -146,6 +150,7 @@
 
           &:first-child{
             border-top: none;
+            margin-top: 32px;
           }
           &:last-child{
             border-bottom: none;

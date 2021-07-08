@@ -7,6 +7,7 @@ from main.mixins import *
 from django.http import JsonResponse
 
 
+
 class Main_Page(CartMixin, View):
 
     def get(self, request, *args, **kwargs):

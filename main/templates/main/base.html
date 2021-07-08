@@ -137,69 +137,27 @@
     <div class="container d-flex justify-content-between">
       <div class='d-flex-align-between'>
         <ul class='d-flex-align-between'>
-          <li>Матрасы
 
-            <ul class='innerList'>
-              <li> <a href="#">Матрас 1</a></li>
-              <li> <a href="#">Матрас 2</a></li>
-              <li> <a href="#">Матрас 3</a></li>
-              <li> <a href="#">Матрас 4</a></li>
-              <li> <a href="#">Матрас 5</a></li>
-              <li> <a href="#">Матрас 6</a></li>
-              <li> <a href="#">Матрас 7</a></li>
-            </ul>
+          {% for cat in goods_cats %}
+            <li class="d-sm-none">{{cat.cat}}
 
-            <svg class='d-sm-none' width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 0.5L5.5 5L10 0.5" stroke="white"/>
-              </svg>
-               </li>
-          <li class='d-sm-none'>Кровати
-            <ul class='innerList'>
-              <li> <a href="#">Кровати 1</a></li>
-              <li> <a href="#">Кровати 2</a></li>
-              <li> <a href="#">Кровати 3</a></li>
-              <li> <a href="#">Кровати 4</a></li>
-              <li> <a href="#">Кровати 5</a></li>
-              <li> <a href="#">Кровати 6</a></li>
-              <li> <a href="#">Кровати 7</a></li>
-            </ul>
+              <ul class='innerList'>
 
-            <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 0.5L5.5 5L10 0.5" stroke="white"/>
-              </svg>
-               </li>
-          <li class='d-sm-none'>Наматрасники
-            
-            <ul class='innerList'>
-              <li> <a href="#">Надматрасни 1</a></li>
-              <li> <a href="#">Надматрасни 2</a></li>
-              <li> <a href="#">Надматрасни 3</a></li>
-              <li> <a href="#">Надматрасни 4</a></li>
-              <li> <a href="#">Надматрасни 5</a></li>
-              <li> <a href="#">Надматрасни 6</a></li>
-              <li> <a href="#">Надматрасни 7</a></li>
-            </ul>
+                {% for good in goods_list %}
+                  {% if good.category == cat %}
+                  <li>
+                    <a href="{% url 'item' ct_model=good.category slug=good.slug %}"> {{ good.title }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
 
-            <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 0.5L5.5 5L10 0.5" stroke="white"/>
-              </svg>
-               </li>
-          <li class='d-sm-none'>Подушки
-            
-            <ul class='innerList'>
-              <li> <a href="#">Подушки 1</a></li>
-              <li> <a href="#">Подушки 2</a></li>
-              <li> <a href="#">Подушки 3</a></li>
-              <li> <a href="#">Подушки 4</a></li>
-              <li> <a href="#">Подушки 5</a></li>
-              <li> <a href="#">Подушки 6</a></li>
-              <li> <a href="#">Подушки 7</a></li>
-            </ul>
+              </ul>
 
-            <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 0.5L5.5 5L10 0.5" stroke="white"/>
-              </svg>
-               </li>
+              <svg class='d-sm-none' width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 0.5L5.5 5L10 0.5" stroke="white"/>
+                </svg>
+            </li>
+          {% endfor %}
         </ul>
       </div>
 

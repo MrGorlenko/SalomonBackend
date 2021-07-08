@@ -148,7 +148,7 @@
     </div>
   </section>
 
-  <section class="section ItemAbout" >
+  <!-- <section class="section ItemAbout" >
     <div class="container">
       <div class="icons">
         <svg width="94" height="94" viewBox="0 0 94 94" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -534,7 +534,7 @@
         </ul>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <section class="section ItemChars">
     <div class="container d-flex">
@@ -545,6 +545,27 @@
           <button id='btnFeedbacks'>Отзывы</button>
         </div>  
         <div id='baseChars' class="base">
+          <div class='d-block'>
+            {% if item.description %}
+            {{item.description|safe}}
+            {% else %}
+            Описания нет
+            {% endif %}
+          </div>
+          <div class='d-none'>
+            {% if  item.characters %}
+            {{item.characters|safe}}
+            {% else %}
+            Характеристик еще нет
+            {% endif %}
+          </div>
+          <div class='d-none'>
+            {% if item.feedbacks %}
+            {{item.feedbacks|safe}}
+            {% else %}
+            Отзывов о товаре еще нет :(
+            {% endif %}
+          </div>
         </div>
       </div>
 
@@ -1080,6 +1101,29 @@ $(function() {
   </script>
 
   <script>
+    let descButtons = document.querySelectorAll('.switchers button')
+    let basechars = document.querySelectorAll('#baseChars div')
+    descButtons.forEach((button, index)=>{
+      button.onclick = () => {
+        //console.log(event.target)
+        //console.log(index)
+        for (let i = 0; i < descButtons.length; i++){
+         // console.log(i)
+         descButtons[i].classList.remove('act')
+         basechars[i].classList.add('d-none')
+         basechars[i].classList.remove('d-block')
+         if (i == index){
+           descButtons[i].classList.add('act')
+           basechars[i].classList.remove('d-none')
+           basechars[i].classList.add('d-block')
+         } 
+
+        }
+      }
+    })
+  </script>
+
+  <script>
     let heightButtons = document.querySelectorAll('.buttonsWidget'),
     sizeSelects = document.querySelectorAll('.sizeSelects')
     
@@ -1087,7 +1131,6 @@ $(function() {
       select.onclick = () => {
         document.querySelector('.select').children[0].innerHTML = select.innerHTML
         document.querySelector('.goodsSIZE').value = select.innerHTML
-        //console.log(document.querySelector('.goodsSIZE').value)
       }
     })
   
@@ -1095,7 +1138,6 @@ $(function() {
   heightButtons.forEach((btns, index) => {
       btns.children[0].className = 'active'
       btns.onclick = () => {
-  
         for (let i = 0; i<btns.children.length; i++) {
           if (btns.children[i].className == 'active'){
             btns.children[i].className = ''
@@ -1104,9 +1146,6 @@ $(function() {
             event.target.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value = btns.children[i].innerHTML
           }
         }
-        
-       // console.log(event.target.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value)
-        
       }
   })
     </script>

@@ -7,7 +7,6 @@ from main.mixins import *
 from django.http import JsonResponse
 
 
-
 class Main_Page(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
@@ -52,6 +51,8 @@ class Items_Details(CartMixin, DetailView):
         context['ct_model'] = self.model
         context['height'] = Goods_Height.objects.all()
         context['sizes'] = Goods_Sizes.objects.all()
+        context['goods_cats'] = GoodsCategory.objects.all()
+        context['goods_list'] = Good.objects.all()
         return context
 
     context_object_name = 'item'
@@ -64,10 +65,14 @@ class Cart_View(CartMixin, View):
     def get(self, request, *args, **kwargs):
         category = GoodsCategory.objects.all()
         images = Goods_Images.objects.all()
+        goods = Good.objects.all()
+        goodCategories = GoodsCategory.objects.all()
         context = {
             'cart': self.cart,
             'category': category,
             'image': images,
+            'goods_cats': goodCategories,
+            'goods_list': goods,
         }
         return render(
             request,

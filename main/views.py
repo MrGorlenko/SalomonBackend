@@ -35,32 +35,56 @@ class Main_Page(CartMixin, View):
 class Product_Comparison(CartMixin, View):
 
     def post(self, request, *args, **kwargs):
-        product_ids = []
         ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
-        ids = Good.objects.filter().values_list('id', flat=True)
-        goods = Good.objects.all()
-        for remaining_id in ids:
-            product_ids.append(remaining_id)
-        product_ids.remove(int(slug))
-        goodCategories = GoodsCategory.objects.all()
-        product_comparison = Good.objects.get(pk=slug)
-        products = Good.objects.filter(pk__in=product_ids)
-        context = {
-            'goods_list': goods,
-            'products': products,
-            'goods_cats': goodCategories,
-            'ct_model': ct_model,
-            'product_comparison': product_comparison,
-        }
-        return render(
-            request,
-            'main/comparing.html',
-            context=context,
-        )
+        if ct_model == 'матрасы':
+            product_ids = []
+            ids = Good.objects.filter(category=2).values_list('id', flat=True)
+            print(ids)
+            goods = Good.objects.all()
+            for remaining_id in ids:
+                product_ids.append(remaining_id)
+            product_ids.remove(int(slug))
+            goodCategories = GoodsCategory.objects.all()
+            product_comparison = Good.objects.get(pk=slug)
+            products = Good.objects.filter(pk__in=product_ids)
+            context = {
+                'goods_list': goods,
+                'products': products,
+                'goods_cats': goodCategories,
+                'ct_model': ct_model,
+                'product_comparison': product_comparison,
+            }
+            return render(
+                request,
+                'main/comparing.html',
+                context=context,
+            )
+        else:
+            product_ids = []
+            ids = Good.objects.filter(category=1).values_list('id', flat=True)
+            print(ids)
+            goods = Good.objects.all()
+            for remaining_id in ids:
+                product_ids.append(remaining_id)
+            product_ids.remove(int(slug))
+            goodCategories = GoodsCategory.objects.all()
+            product_comparison = Good.objects.get(pk=slug)
+            products = Good.objects.filter(pk__in=product_ids)
+            context = {
+                'goods_list': goods,
+                'products': products,
+                'goods_cats': goodCategories,
+                'ct_model': ct_model,
+                'product_comparison': product_comparison,
+            }
+            return render(
+                request,
+                'main/comparing.html',
+                context=context,
+            )
 
 
 class Items_Details(CartMixin, DetailView):
-
     CT_MODEL_MODEL_CLASS = {
         'матрасы': Good,
         'кровати': Good,

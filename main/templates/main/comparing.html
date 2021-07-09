@@ -89,8 +89,16 @@
             </li>
             <li> {{ product_comparison.mattress_type }} </li>
             <li> {{ product_comparison.maximum_load_on_one_berth }} </li>
-            <li class='checked'> {{ product_comparison.ability_to_twist }} </li>
-            <li class='checked'> {{ product_comparison.hypoallergenic }} </li>
+            {% if product_comparison.ability_to_twist == True %}
+             <li> <img class='checked' src="{% static 'img/check 2.svg' %}" alt=""> </li>
+            {% else %}
+             <li> <img class='checked' src="{% static 'img/minus.svg' %}" alt=""> </li>
+            {% endif %}
+            {% if product_comparison.hypoallergenic == True %}
+             <li> <img class='not' src="{% static 'img/check 2.svg' %}" alt=""> </li>
+            {% else %}
+             <li> <img class='not' src="{% static 'img/minus.svg' %}" alt=""> </li>
+            {% endif %}
           </ul>
 
           <button class="one-click-button">
@@ -114,8 +122,16 @@
             </li>
             <li>{{ product.mattress_type }}</li>
             <li>{{ product.maximum_load_on_one_berth }}</li>
-            <li class='checked'> {{ product.ability_to_twist }} </li>
-            <li class='not'> {{ product.hypoallergenic }} </li>
+            {% if product.ability_to_twist == True %}
+             <li> <img class='checked' src="{% static 'img/check 2.svg' %}" alt=""> </li>
+            {% else %}
+             <li> <img class='checked' src="{% static 'img/minus.svg' %}" alt=""> </li>
+            {% endif %}
+            {% if product.hypoallergenic == True %}
+             <li> <img class='not' src="{% static 'img/check 2.svg' %}" alt=""> </li>
+            {% else %}
+             <li> <img class='not' src="{% static 'img/minus.svg' %}" alt=""> </li>
+            {% endif %}
           </ul>
 
           <button class="one-click-button">

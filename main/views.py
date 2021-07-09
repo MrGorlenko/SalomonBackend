@@ -152,7 +152,7 @@ class Cart_View(CartMixin, View):
         )
         customer.orders.add(order)
         order.save()
-        return HttpResponseRedirect('/cart/')
+        return HttpResponseRedirect('/success/')
 
 
 class Add_To_Cart(CartMixin, View):
@@ -222,3 +222,13 @@ class Change_Count_Items(CartMixin, View):
         cart_product.save()
         self.cart.save()
         return HttpResponseRedirect('/cart/')
+
+
+class Success_Page(CartMixin, View):
+
+    def get(self, request, *args, **kwargs):
+
+        return render(
+            request,
+            'main/success.html'
+        )

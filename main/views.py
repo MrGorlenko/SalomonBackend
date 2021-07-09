@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import DetailView, View, CreateView, FormView, UpdateView
+from django.views.generic import DetailView, View
 from django.views.generic.edit import FormMixin
 from main.models import *
 from main.mixins import *
@@ -31,6 +31,33 @@ class Main_Page(CartMixin, View):
             request,
             'main/index.html',
             context=context
+        )
+
+
+class Product_Comparison(CartMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        product_ids = []
+        ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
+        ids = Good.objects.filter().values_list('id', flat=True)
+        goods = Good.objects.all()
+        for remaining_id in ids:
+            product_ids.append(remaining_id)
+        product_ids.remove(int(slug))
+        goodCategories = GoodsCategory.objects.all()
+        product_comparison = Good.objects.get(pk=slug)
+        products = Good.objects.filter(pk__in=product_ids)
+        context = {
+            'goods_list': goods,
+            'products': products,
+            'goods_cats': goodCategories,
+            'ct_model': ct_model,
+            'product_comparison': product_comparison,
+        }
+        return render(
+            request,
+            'main/comparing.html',
+            context=context,
         )
 
 

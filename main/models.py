@@ -71,7 +71,18 @@ class Good(models.Model):
     description = RichTextField(blank=True, verbose_name='Описание')
     characters = RichTextField(blank=True, verbose_name='Характеристики')
     feedbacks = RichTextField(blank=True, verbose_name='Отзывы')
+    height = models.IntegerField(null=True, default=0, verbose_name='Высота', blank=True)
+    size = models.CharField(max_length=50, blank=True, verbose_name='Размер')
+    mattress_type = models.CharField(max_length=50, blank=True, verbose_name='Тип матраса')
     image_for_cart = models.ImageField(blank=True, verbose_name='Картинка для корзины')
+    maximum_load_on_one_berth = models.IntegerField(
+        null=True,
+        default=0,
+        verbose_name='Макс. нагрузка на одно спальное место',
+        blank=True
+    )
+    ability_to_twist = models.BooleanField(default=False, verbose_name='Возможность скрутить')
+    hypoallergenic = models.BooleanField(default=False, verbose_name='Гипоаллергенный')
 
     def __str__(self):
         return f'{self.title}'

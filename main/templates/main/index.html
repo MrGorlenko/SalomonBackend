@@ -352,11 +352,13 @@
               <button class='gold one-click-button' type="submit">Купить в 1 клик</button>
             </form>
 
-           <div class='compare d-flex align-items-center'>
+          <form class='product_comparison' action="{% url 'product_comparison' ct_model=good.category slug=good.id %}" method="POST">
+           {% csrf_token %}
+            <div class='compare d-flex align-items-center'>
             <img src="{% static 'img/compareGold.svg' %}" alt="">
-            Сравнить
-          </div> 
-
+            <button type="submit"> Сравнить </button>
+          </div>
+            </form>
         </div>
         <p class="d-none quol">{{good.quolity}}</p>
         <p class='d-none priceFilt'>{{good.price}}</p>

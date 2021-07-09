@@ -127,7 +127,7 @@ class Order_Admin(admin.ModelAdmin, ExportCsvMixin):
             return response
         response.context_data['table'] = list(
             qs
-            .values(
+                .values(
                 'id',
                 'name',
                 'telephone',
@@ -148,7 +148,7 @@ class Order_Admin(admin.ModelAdmin, ExportCsvMixin):
 @admin.register(Goods_Cart_Proxy)
 class Goods_Cart_Proxy_Admin(admin.ModelAdmin):
     change_list_template = 'admin/goods_cart_table.html'
-    list_filter = ('publish_date', )
+    list_filter = ('publish_date',)
     date_hierarchy = 'publish_date'
 
     def get_content(self, obj):
@@ -171,9 +171,15 @@ class Goods_Cart_Proxy_Admin(admin.ModelAdmin):
         }
         response.context_data['table'] = list(
             qs
-            .annotate(**context)
+                .annotate(**context)
         )
         response.context_data['summary_total'] = dict(
             qs.aggregate(**context)
         )
         return response
+
+
+@admin.register(Comments)
+class Comments_Admin(admin.ModelAdmin):
+    list_display = ('name', 'rating', )
+    list_filter = ('rating', )

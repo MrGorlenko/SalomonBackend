@@ -299,3 +299,14 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Заказы'
         verbose_name_plural = 'Заказы'
+
+
+class Comments(models.Model):
+    name = models.CharField(null=True, max_length=100, verbose_name='Имя заказчика', blank=True)
+    comment = models.TextField(verbose_name='Комментарий к заказу', null=True, blank=True)
+    rating = models.FloatField(blank=True, default=1, verbose_name='Популярность', null=True)
+    title = models.CharField(max_length=100, verbose_name='Название товара', blank=True)
+
+    class Meta:
+        verbose_name = 'Комментарии к заказам'
+        verbose_name_plural = 'Комментарии к заказам'

@@ -13,22 +13,33 @@
   align-items: center;
 
 
+
+
 }
 
 .ModalCart{
-  width: 800px;
-  height: 80%;
+  width: 512px;
+  height: 212px;
   overflow-y: scroll;
   background-color: #fff;
   padding: 25px;
   border-radius: 10px;
+  justify-content: center;
 
   position: relative;
-  #close{
+  p{
+    color: #221904;
+    text-transform: capitalize;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 29px;
+  }
+  &__close{
     position: absolute;
     top: 25px;
     right: 30px;
     width: 40px;
     height: 40px;
+    cursor: pointer;
   }
 }

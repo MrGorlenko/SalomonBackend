@@ -21,7 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mathfilters',
     'djrichtextfield',
-    'phonenumber_field',
+    # 'phonenumber_field',
 ]
 
 MIDDLEWARE = [

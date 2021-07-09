@@ -100,10 +100,12 @@
              <li> <img class='not' src="{% static 'img/minus.svg' %}" alt=""> </li>
             {% endif %}
           </ul>
-
-          <button class="one-click-button">
+          <form class='buy_on_click' action="{% url 'add_to_cart' ct_model=product_comparison.category slug=product_comparison.id %}" method="POST">
+            {% csrf_token %}
+          <button class="one-click-button" type="submit">
             Купить
           </button>
+          </form>
         </div>
 
         <div class="col">
@@ -134,16 +136,17 @@
             {% endif %}
           </ul>
 
-          <button class="one-click-button">
+          <form class='buy_on_click' action="{% url 'add_to_cart' ct_model=product.category slug=product.id %}" method="POST">
+            {% csrf_token %}
+          <button class="one-click-button" type="submit">
             Купить
           </button>
+          </form>
+        </div>
           {% endfor %}
         </div>
-
       </div>
     </div>
-
-
   </section>
 
   <section class='section feedbacks'>

@@ -1,10 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, View
-from django.views.generic.edit import FormMixin
 from main.models import *
 from main.mixins import *
-from django.http import JsonResponse
 
 
 class Main_Page(CartMixin, View):
@@ -62,6 +60,7 @@ class Product_Comparison(CartMixin, View):
 
 
 class Items_Details(CartMixin, DetailView):
+
     CT_MODEL_MODEL_CLASS = {
         'матрасы': Good,
         'кровати': Good,
@@ -126,7 +125,6 @@ class Cart_View(CartMixin, View):
             cart=self.cart,
             comment=comment,
             customer=customer
-
         )
         customer.orders.add(order)
         order.save()
@@ -140,18 +138,30 @@ class Add_To_Cart(CartMixin, View):
         size = request.POST.get('goodsSIZE')
         ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
         product = Good.objects.get(pk=slug)
-        cart_product, created = Goods_Cart.objects.get_or_create(
-            user=self.cart.owner,
-            cart=self.cart,
-            content_type_id=1,
-            object_id=product.id,
-            height=int(height),
-            size=str(size)
-        )
-        if created:
-            self.cart.products.add(cart_product)
-            self.cart.save()
-        return HttpResponseRedirect('/cart/')
+        if height is None and size is None:
+            cart_product, created = Goods_Cart.objects.get_or_create(
+                user=self.cart.owner,
+                cart=self.cart,
+                content_type_id=1,
+                object_id=product.id
+            )
+            if created:
+                self.cart.products.add(cart_product)
+                self.cart.save()
+            return HttpResponseRedirect('/cart/')
+        else:
+            cart_product, created = Goods_Cart.objects.get_or_create(
+                user=self.cart.owner,
+                cart=self.cart,
+                content_type_id=1,
+                object_id=product.id,
+                height=int(height),
+                size=str(size)
+            )
+            if created:
+                self.cart.products.add(cart_product)
+                self.cart.save()
+            return HttpResponseRedirect('/cart/')
 
 
 class Delete_From_Cart(CartMixin, View):

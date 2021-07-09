@@ -163,7 +163,7 @@ class Goods_Cart(models.Model):
                                verbose_name='Скидка'
                                )
     height = models.IntegerField(null=True, default=0, verbose_name='Высота', blank=True)
-    size = models.CharField(max_length=50, blank=True, verbose_name='Размер')
+    size = models.CharField(max_length=50, blank=True, verbose_name='Размер', default='Не заполнено')
     publish_date = models.DateField(verbose_name='Дата', default=timezone.now)
 
     def __str__(self):

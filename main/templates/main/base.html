@@ -14,6 +14,8 @@
 </head>
 <body class='index'>
 
+
+
   <header class='header'>
     <div class="header__top">
 
@@ -51,9 +53,9 @@
     <div class="header__base">
       <div class="container d-flex-align-between">
 
-        <svg id='burger-toggle' class='d-lg-none burger-toggle' width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {% comment %} <svg id='burger-toggle' class='d-lg-none burger-toggle' width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1.39143 3.73157H22.6086C23.3774 3.73157 24 3.09752 24 2.31325C24 1.53094 23.3774 0.894592 22.6086 0.894592H1.39143C0.622567 0.894592 0 1.53094 0 2.31325C0 3.09785 0.622567 3.73157 1.39143 3.73157ZM22.6086 9.58134H1.39143C0.622567 9.58134 0 10.218 0 11C0 11.7849 0.622567 12.4186 1.39143 12.4186H22.6086C23.3774 12.4186 24 11.7846 24 11C24 10.218 23.3774 9.58134 22.6086 9.58134ZM22.6086 18.2681H1.39143C0.622567 18.2681 0 18.9048 0 19.6867C0 20.4717 0.622567 21.1054 1.39143 21.1054H22.6086C23.3774 21.1054 24 20.4707 24 19.6867C24 18.9048 23.3774 18.2681 22.6086 18.2681Z" fill="#242424"/>
-        </svg>
+        </svg> {% endcomment %}
         <a href="{% url 'home' %}">
           <img class='logo' src="{% static 'img/logo2.svg' %}" alt="">
         </a>
@@ -136,6 +138,10 @@
   <nav class="nav">
     <div class="container d-flex justify-content-between">
       <div class='d-flex-align-between'>
+        <svg id='burger-toggle' class='d-lg-none burger-toggle' width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.39143 3.73157H22.6086C23.3774 3.73157 24 3.09752 24 2.31325C24 1.53094 23.3774 0.894592 22.6086 0.894592H1.39143C0.622567 0.894592 0 1.53094 0 2.31325C0 3.09785 0.622567 3.73157 1.39143 3.73157ZM22.6086 9.58134H1.39143C0.622567 9.58134 0 10.218 0 11C0 11.7849 0.622567 12.4186 1.39143 12.4186H22.6086C23.3774 12.4186 24 11.7846 24 11C24 10.218 23.3774 9.58134 22.6086 9.58134ZM22.6086 18.2681H1.39143C0.622567 18.2681 0 18.9048 0 19.6867C0 20.4717 0.622567 21.1054 1.39143 21.1054H22.6086C23.3774 21.1054 24 20.4707 24 19.6867C24 18.9048 23.3774 18.2681 22.6086 18.2681Z" 
+          fill="#fff"/>
+        </svg>
         <ul class='d-flex-align-between'>
 
           {% for cat in goods_cats %}
@@ -213,6 +219,56 @@
     </div>
   </nav>
   </header>
+
+
+    <div id='burger' class="burger burger__off">
+    <svg class="close" id='burger-close' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 0C5.34545 0 0 5.34545 0 12C0 18.6545 5.34545 24 12 24C18.6545 24 24 18.6545 24 12C24 5.34545 18.6545 0 12 0ZM13.7455 12.2182L17.8364 16.3091C17.9455 16.4182 18 16.5818 18 16.6909C18 16.8 17.9455 16.9636 17.8364 17.0727L17.0727 17.8364C16.9636 17.9455 16.8 18 16.6909 18C16.5273 18 16.4182 17.9455 16.3091 17.8364L12.2182 13.7455C12.1091 13.6364 11.9455 13.6364 11.8364 13.7455L7.74545 17.8364C7.63636 17.9455 7.47273 18 7.36364 18C7.2 18 7.09091 17.9455 6.98182 17.8364L6.21818 17.0727C6.10909 16.9636 6.05455 16.8 6.05455 16.6909C6.05455 16.5818 6.10909 16.4182 6.21818 16.3091L10.3091 12.2182C10.4182 12.1091 10.4182 11.9455 10.3091 11.8364L6.21818 7.74545C6.10909 7.63636 6.05455 7.47273 6.05455 7.36364C6.05455 7.25455 6.10909 7.09091 6.21818 6.98182L6.98182 6.21818C7.09091 6.10909 7.25455 6.05455 7.36364 6.05455C7.47273 6.05455 7.63636 6.10909 7.74545 6.21818L11.8364 10.3091C11.9455 10.4182 12.1091 10.4182 12.2182 10.3091L16.3091 6.21818C16.4182 6.10909 16.5818 6.05455 16.6909 6.05455C16.8545 6.05455 16.9636 6.10909 17.0727 6.21818L17.8364 6.98182C17.9455 7.09091 18 7.25455 18 7.36364C18 7.47273 17.9455 7.63636 17.8364 7.74545L13.7455 11.8364C13.6364 11.8909 13.6364 12.1091 13.7455 12.2182Z" fill="#F5E38B"/>
+      </svg>
+    
+    <img class='logo' src="{% static 'img/logo2.svg' %}" alt="">
+    <div class='burger__address'>
+      <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5.99996 0.945999C2.77496 0.945999 0.166626 3.4698 0.166626 6.59029C0.166626 10.8235 5.99996 17.0725 5.99996 17.0725C5.99996 17.0725 11.8333 10.8235 11.8333 6.59029C11.8333 3.4698 9.22496 0.945999 5.99996 0.945999ZM5.99996 8.6061C4.84996 8.6061 3.91663 7.70302 3.91663 6.59029C3.91663 5.47755 4.84996 4.57447 5.99996 4.57447C7.14996 4.57447 8.08329 5.47755 8.08329 6.59029C8.08329 7.70302 7.14996 8.6061 5.99996 8.6061Z" fill="url(#paint0_linear)"/>
+        <defs>
+        <linearGradient id="paint0_linear" x1="2.72302" y1="9.00926" x2="12.7221" y2="9.00926" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#DBC266"/>
+        <stop offset="0.463542" stop-color="#AE8930"/>
+        <stop offset="0.827015" stop-color="#CFA43D"/>
+        <stop offset="0.906096" stop-color="#F5E38B"/>
+        </linearGradient>
+        </defs>
+        </svg>
+        
+      <span>Новосибирск, ул. Мичурина, д. 12а 1 этаж</span>
+    </div>
+    <ul class='firstLvl'>
+
+      {% for cat in goods_cats %}
+
+      <li class='first off'>
+        <span>{{cat.cat}}</span> 
+        <ul class="secondLvl secondLvlOff">
+        {% for good in goods_list %}
+          {% if good.category == cat %}
+          <li>
+            <a href="{% url 'item' ct_model=good.category slug=good.slug %}"> {{ good.title }}</a>
+          </li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+      </li>
+
+      {% endfor %}
+    </ul>
+
+    <ul class="links">
+      <li><a href="#">Гарантии</a></li>
+      <li><a href="#">Отзывы</a></li>
+      <li><a href="#">Оплата и доставка</a></li>
+      <li><a href="#">Контакты</a></li>
+    </ul>
+  </div>
 
 
   {% block content %}
@@ -294,6 +350,54 @@
       console.log(a)
     })
   </script>
+
+  <script>
+  
+
+let sections = document.querySelectorAll('.section');
+    let burger = document.getElementById('burger'),
+ burgerToggle = document.getElementById('burger-toggle'),
+ burgerClose = document.getElementById('burger-close'),
+ burgerMenus = document.querySelectorAll('.burger .firstLvl .first');
+
+burgerClose.addEventListener('click', () => {
+  burger.classList.add('burger__off');
+  burger.classList.remove('burger__on');
+  sections.forEach((section) => {
+    section.classList.add('d-block');
+    section.classList.remove('d-none');
+  })
+})
+
+burgerToggle.addEventListener('click', () => {
+  sections.forEach((section) => {
+    setTimeout(()=> {
+      section.classList.add('d-none');
+      section.classList.remove('d-block');
+    }, 400)
+    
+  })
+  burger.classList.add('burger__on');
+  burger.classList.remove('burger__off');
+})
+
+burgerMenus.forEach(function(elem){
+  elem.addEventListener('click', function(e){
+    if (elem.classList.contains('on')){
+      elem.classList.remove('on')
+      elem.classList.add('off')
+      elem.children[1].classList.add('secondLvlOff')
+      elem.children[1].classList.remove('secondLvlOn')
+    } else {
+      elem.classList.remove('off')
+      elem.classList.add('on')
+      elem.children[1].classList.add('secondLvlOn')
+      elem.children[1].classList.remove('secondLvlOff')
+    }
+  })
+})
+
+   </script>
 
   <script src='{% static "js/scripts/compare.js" %}'></script>
   <!--<script src='{% static "js/scripts/cart.js" %}'></script> -->

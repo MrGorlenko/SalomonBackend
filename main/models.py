@@ -21,6 +21,7 @@ class Slides(models.Model):
     typeof = models.CharField(max_length=8)
     price = models.DecimalField(max_digits=6, decimal_places=1, blank=True, null=True)
     image = models.ImageField(blank=True)
+    url = models.URLField(max_length=200, default='')
 
     def __str__(self):
         return f'{self.title}'

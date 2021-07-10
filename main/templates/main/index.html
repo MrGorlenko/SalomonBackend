@@ -249,7 +249,7 @@
           <img class='d-lg-none' src="{% static 'img/goldenDottenLineHorizontal.svg' %}" alt="">
 
           <div class="SaleGood__base">
-
+            <p class='d-lg-none detailsMobile' > Подробнее </p>
             <ul>
               <li class='d-flex-align-between'>
                 <div><img src="{% static 'img/featherIcon.svg' %}" alt=""> Жесткость</div>
@@ -259,7 +259,8 @@
               </li>
               <li class='d-flex-align-between'>
                 <div><img src="{% static 'img/heightIcon.svg' %}" alt=""> Высота</div>
-                <div style='justify-content:space-between' class="buttonsWidget">
+
+                <div class="buttonsWidget">
                   {% for height in goods_height %}
                   {% if height.prop.title == good.title %}
                     <button >
@@ -437,9 +438,36 @@
 </section>
 
 
+<script>
 
+  let btns = document.querySelectorAll('.detailsMobile');
+
+  buttonsWidget = document.querySelectorAll('.buttonsWidget')
+
+  buttonsWidget.forEach((btn) => {
+    //console.log(btn.children.length)
+    if (btn.children.length == 1){
+      btn.style.justifyContent = 'center'
+    } else{
+      btn.style.justifyContent = 'space-between'
+    }
+  })
+
+  btns.forEach((btn) => {
+    btn.onclick = () => {
+      console.log('a')
+      event.target.style.display = 'none'
+      event.target.parentNode.querySelector('ul').style.display = 'block'
+      event.target.parentNode.querySelector('div').style.display = 'flex'
+    }
+  })
+  
+
+</script>
 
 <script>
+
+
   let goods = document.querySelectorAll('.SaleGood'),
   selects = document.querySelectorAll('.SaleGood .SaleGood__about .SaleGood__base ul .sizes .select'),
   listElem = document.querySelectorAll('.SaleGood .SaleGood__about .SaleGood__base ul .sizes .select ul li');

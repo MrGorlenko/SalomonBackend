@@ -344,12 +344,8 @@
             {% endfor %}
             <form class='buy_on_click' action="{% url 'add_to_cart' ct_model=good.category slug=good.id %}" method="POST">
               {% csrf_token %}
-            {% comment %} INPUT WITH HEIGHT {% endcomment %}
               <input hidden name='goodsHEIGHT' class='goodsHEIGHT' type="text">
-            {% comment %} INPUT WITH HEIGHT {% endcomment %}
-            {% comment %} INPUT WITH SIZE {% endcomment %}
               <input hidden name='goodsSIZE' class='goodsSIZE' type="text">
-            {% comment %} INPUT WITH SIZE {% endcomment %}
               <button class='gold one-click-button' type="submit">Купить в 1 клик</button>
             </form>
 

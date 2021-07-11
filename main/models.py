@@ -4,7 +4,7 @@ from django.db import models
 from djrichtextfield.models import RichTextField
 from django.urls import reverse
 from django.utils import timezone
-# from phonenumber_field.modelfields import PhoneNumberField
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 def get_product_url(obj, viewname):
@@ -173,7 +173,10 @@ class Goods_Cart(models.Model):
     def save(self, *args, **kwargs):
         self.final_price = self.qty * self.content_object.price
         self.old_price = self.qty * self.content_object.old_price
-        self.sale = self.qty * self.content_object.old_price - self.qty * self.content_object.price
+        if self.old_price == 0:
+            self.qty * self.content_object.price
+        else:
+            self.sale = self.qty * self.content_object.old_price - self.qty * self.content_object.price
         super().save(*args, **kwargs)
 
     class Meta:
@@ -270,8 +273,7 @@ class Order(models.Model):
     )
 
     name = models.CharField(null=True, max_length=100, verbose_name='Имя заказчика', blank=True)
-    # telephone = PhoneNumberField(null=True, blank=True, unique=False)
-    telephone = models.CharField(null=True,max_length=100, blank=True, unique=False)
+    telephone = PhoneNumberField(null=True, blank=True, unique=False)
     email = models.EmailField(null=True, blank=True, verbose_name='Email Заказчика')
     agreement = models.BooleanField(default=False, verbose_name='Соглашение с правилами')
     customer = models.ForeignKey(Customer, verbose_name='Покупатель', related_name='related_orders',

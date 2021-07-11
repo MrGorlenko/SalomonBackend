@@ -86,8 +86,9 @@ class Product_Comparison(CartMixin, View):
 
 class Items_Details(CartMixin, DetailView):
     CT_MODEL_MODEL_CLASS = {
-        'матрасы': Good,
-        'кровати': Good,
+        'Матрасы': Good,
+        'Кровати': Good,
+        'Кресла': Good,
     }
 
     def dispatch(self, request, *args, **kwargs):

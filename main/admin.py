@@ -71,7 +71,7 @@ admin.site.register(Good, PropsAdminImage)
 
 @admin.register(Goods_Cart)
 class Goods_Cart_Admin(admin.ModelAdmin):
-    list_display = ('get_content_object',)
+    list_display = ('get_content_object', 'cart', )
     list_per_page = sys.maxsize
 
     def get_content_object(self, obj):
@@ -163,7 +163,6 @@ class Goods_Cart_Proxy_Admin(admin.ModelAdmin):
         )
         try:
             qs = response.context_data['cl'].queryset
-            print(qs)
         except (AttributeError, KeyError):
             return response
         context = {

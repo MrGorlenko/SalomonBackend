@@ -2,37 +2,39 @@
 
 {% load static %}
 {% block content %}
+  <div class="way">
+    <div class="container">
+      <a href="{% url 'home' %}" >Главная</a>
+      >
+      <a href='#' class='active'>Подбор товара</a>
+    </div>
+  </div>
 
 <section class="section salePage">
   <div class="container">
-    <h2 class="pageHeader">Подбор матрасса</h2>
-
+    <h2 class="pageHeader">Подбор матраса</h2>
+    {% if selections == False %}
+    <h2>Товара с такими критериями нет в наличии</h2>
+    {% else %}
+    {% for selection in selections %}
     <div class="saleBase">
-      {% for selection in selections %}
       <div class="item d-flex">
-        <img class='banner' src={{selection.image_for_cart.url}} alt="">
-
+        <img class='banner' src="{{ selection.image_for_cart.url }}" alt="">
         <div class="info">
           <h3>{{ selection.title }}</h3>
           <ul>
             <li>Жесткость: {{ selection.rigidity }}</li>
             <li>Размер: {{ selection.size }}</li>
-            <li>Цена: {{selection.price}}</li>
+            <li>Цена: {{ selection.price }}</li>
           </ul>
           <button onclick="location.href='{% url 'item' ct_model=selection.category slug=selection.slug %}'" 
           class="golden-button">ПОДРОБНЕЕ</button>
         </div>
-
-        
-        
       </div>
-      {% endfor %}
     </div>
 
-
-
-
-
+      {% endfor %}
+    {% endif %}
 </div>
 </section>
 {% endblock content %}

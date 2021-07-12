@@ -37,160 +37,372 @@ class Main_Page(CartMixin, View):
         Size = request.POST.get('FilterSize')
         Height = request.POST.get('FilterHeight')
         Rigidity = request.POST.get('FilterRigidity')
+        goods = Good.objects.all()
+        goodCategories = GoodsCategory.objects.all()
         if Height == '' and Rigidity == '':
             selection = Good.objects.filter(size=Size)
-            context = {
-                'selections': selection,
-            }
-            return render(
-                request,
-                'main/selection.html',
-                context=context,
-            )
+            if not selection.exists():
+                context = {
+                    'selections': selection.exists(),
+                    'goods_list': goods,
+                    'goods_cats': goodCategories,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
+            else:
+                context = {
+                    'selections': selection,
+                    'goods_list': goods,
+                    'goods_cats': goodCategories,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
         elif Size == '' and Rigidity == '':
             if Height == 'Низкая':
                 selection = Good.objects.filter(height__lte=9)
-                context = {
-                    'selections': selection,
-                }
-                return render(
-                    request,
-                    'main/selection.html',
-                    context=context,
-                )
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
             elif Height == 'Средняя':
                 selection = Good.objects.filter(height__range=(10, 15))
-                context = {
-                    'selections': selection,
-                }
-                return render(
-                    request,
-                    'main/selection.html',
-                    context=context,
-                )
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
             elif Height == 'Высокая':
                 selection = Good.objects.filter(height__gte=16)
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+        elif Size == '' and Height == '':
+            selection = Good.objects.filter(rigidity=Rigidity)
+            if not selection.exists():
                 context = {
-                    'selections': selection,
+                    'selections': selection.exists(),
+                    'goods_list': goods,
+                    'goods_cats': goodCategories,
                 }
                 return render(
                     request,
                     'main/selection.html',
                     context=context,
                 )
-        elif Size == '' and Height == '':
-            selection = Good.objects.filter(rigidity=Rigidity)
-            context = {
-                'selections': selection,
-            }
-            return render(
-                request,
-                'main/selection.html',
-                context=context,
-            )
+            else:
+                context = {
+                    'selections': selection,
+                    'goods_list': goods,
+                    'goods_cats': goodCategories,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
         elif Size == '':
             if Height == 'Низкая':
                 selection = Good.objects.filter(rigidity=Rigidity, height__lte=9)
-                context = {
-                    'selections': selection,
-                }
-                return render(
-                    request,
-                    'main/selection.html',
-                    context=context,
-                )
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
             elif Height == 'Средняя':
                 selection = Good.objects.filter(rigidity=Rigidity, height__range=(10, 15))
-                context = {
-                    'selections': selection,
-                }
-                return render(
-                    request,
-                    'main/selection.html',
-                    context=context,
-                )
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
             elif Height == 'Высокая':
                 selection = Good.objects.filter(rigidity=Rigidity, height__gte=16)
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+        elif Height == '':
+            selection = Good.objects.filter(rigidity=Rigidity, size=Size)
+            if not selection.exists():
                 context = {
-                    'selections': selection,
+                    'selections': selection.exists(),
+                    'goods_list': goods,
+                    'goods_cats': goodCategories,
                 }
                 return render(
                     request,
                     'main/selection.html',
                     context=context,
                 )
-        elif Height == '':
-            selection = Good.objects.filter(rigidity=Rigidity, size=Size)
-            context = {
-                'selections': selection,
-            }
-            return render(
-                request,
-                'main/selection.html',
-                context=context,
-            )
+            else:
+                context = {
+                    'selections': selection,
+                    'goods_list': goods,
+                    'goods_cats': goodCategories,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
         elif Rigidity == '':
             if Height == 'Низкая':
                 selection = Good.objects.filter(height__lte=9, size=Size)
-                context = {
-                    'selections': selection,
-                }
-                return render(
-                    request,
-                    'main/selection.html',
-                    context=context,
-                )
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
             elif Height == 'Средняя':
                 selection = Good.objects.filter(height__range=(10, 15), size=Size)
-                context = {
-                    'selections': selection,
-                }
-                return render(
-                    request,
-                    'main/selection.html',
-                    context=context,
-                )
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
             elif Height == 'Высокая':
                 selection = Good.objects.filter(height__gte=16, size=Size)
-                context = {
-                    'selections': selection,
-                }
-                return render(
-                    request,
-                    'main/selection.html',
-                    context=context,
-                )
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
         else:
             if Height == 'Низкая':
                 selection = Good.objects.filter(rigidity=Rigidity, size=Size, height__lte=9)
-                context = {
-                    'selections': selection,
-                }
-                return render(
-                    request,
-                    'main/selection.html',
-                    context=context,
-                )
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
             elif Height == 'Средняя':
                 selection = Good.objects.filter(rigidity=Rigidity, size=Size, height__range=(10, 15))
-                context = {
-                    'selections': selection,
-                }
-                return render(
-                    request,
-                    'main/selection.html',
-                    context=context,
-                )
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
             elif Height == 'Высокая':
                 selection = Good.objects.filter(rigidity=Rigidity, size=Size, height__gte=16)
-                context = {
-                    'selections': selection,
-                }
-                return render(
-                    request,
-                    'main/selection.html',
-                    context=context,
-                )
+                if not selection.exists():
+                    context = {
+                        'selections': selection.exists(),
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
+                else:
+                    context = {
+                        'selections': selection,
+                        'goods_list': goods,
+                        'goods_cats': goodCategories,
+                    }
+                    return render(
+                        request,
+                        'main/selection.html',
+                        context=context,
+                    )
 
 
 class Product_Comparison(CartMixin, View):

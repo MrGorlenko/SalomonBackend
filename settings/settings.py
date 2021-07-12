@@ -11,10 +11,9 @@ ALLOWED_HOSTS = ['*']
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'Uroky322@yandex.ru'
-EMAIL_HOST_PASSWORD = '#######'
+EMAIL_HOST_PASSWORD = 'ilu6a234'
 DEFAULT_FROM_EMAIL = 'ilu6a234@gmail.com'
 EMAIL_USE_TLS = True
-
 
 INSTALLED_APPS = [
     'jet.dashboard',
@@ -109,7 +108,6 @@ JET_SIDE_MENU_COMPACT = True
 JET_CHANGE_FORM_SIBLING_LINKS = True
 JET_INDEX_DASHBOARD = 'main.dashboard.CustomIndexDashboard'
 JET_APP_INDEX_DASHBOARD = 'jet.dashboard.dashboard.DefaultAppIndexDashboard'
-
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'

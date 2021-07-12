@@ -48,15 +48,36 @@ class Main_Page(CartMixin, View):
                 context=context,
             )
         elif Size == '' and Rigidity == '':
-            selection = Good.objects.filter(height=Height)
-            context = {
-                'selections': selection,
-            }
-            return render(
-                request,
-                'main/selection.html',
-                context=context,
-            )
+            if Height == 'Низкая':
+                selection = Good.objects.filter(height__lte=9)
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
+            elif Height == 'Средняя':
+                selection = Good.objects.filter(height__range=(10, 15))
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
+            elif Height == 'Высокая':
+                selection = Good.objects.filter(height__gte=16)
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
         elif Size == '' and Height == '':
             selection = Good.objects.filter(rigidity=Rigidity)
             context = {
@@ -68,15 +89,36 @@ class Main_Page(CartMixin, View):
                 context=context,
             )
         elif Size == '':
-            selection = Good.objects.filter(rigidity=Rigidity, height=Height)
-            context = {
-                'selections': selection,
-            }
-            return render(
-                request,
-                'main/selection.html',
-                context=context,
-            )
+            if Height == 'Низкая':
+                selection = Good.objects.filter(rigidity=Rigidity, height__lte=9)
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
+            elif Height == 'Средняя':
+                selection = Good.objects.filter(rigidity=Rigidity, height__range=(10, 15))
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
+            elif Height == 'Высокая':
+                selection = Good.objects.filter(rigidity=Rigidity, height__gte=16)
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
         elif Height == '':
             selection = Good.objects.filter(rigidity=Rigidity, size=Size)
             context = {
@@ -88,25 +130,67 @@ class Main_Page(CartMixin, View):
                 context=context,
             )
         elif Rigidity == '':
-            selection = Good.objects.filter(height=Height, size=Size)
-            context = {
-                'selections': selection,
-            }
-            return render(
-                request,
-                'main/selection.html',
-                context=context,
-            )
+            if Height == 'Низкая':
+                selection = Good.objects.filter(height__lte=9, size=Size)
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
+            elif Height == 'Средняя':
+                selection = Good.objects.filter(height__range=(10, 15), size=Size)
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
+            elif Height == 'Высокая':
+                selection = Good.objects.filter(height__gte=16, size=Size)
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
         else:
-            selection = Good.objects.filter(rigidity=Rigidity, size=Size, height=Height)
-            context = {
-                'selections': selection,
-            }
-            return render(
-                request,
-                'main/selection.html',
-                context=context,
-            )
+            if Height == 'Низкая':
+                selection = Good.objects.filter(rigidity=Rigidity, size=Size, height__lte=9)
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
+            elif Height == 'Средняя':
+                selection = Good.objects.filter(rigidity=Rigidity, size=Size, height__range=(10, 15))
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
+            elif Height == 'Высокая':
+                selection = Good.objects.filter(rigidity=Rigidity, size=Size, height__gte=16)
+                context = {
+                    'selections': selection,
+                }
+                return render(
+                    request,
+                    'main/selection.html',
+                    context=context,
+                )
 
 
 class Product_Comparison(CartMixin, View):
@@ -116,7 +200,6 @@ class Product_Comparison(CartMixin, View):
         if ct_model == 'Матрасы':
             product_ids = []
             ids = Good.objects.filter(category=2).values_list('id', flat=True)
-            print(ids)
             goods = Good.objects.all()
             for remaining_id in ids:
                 product_ids.append(remaining_id)

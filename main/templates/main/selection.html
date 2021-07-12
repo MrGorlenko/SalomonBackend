@@ -3,14 +3,36 @@
 {% load static %}
 {% block content %}
 
-<p>Это фильтр</p>
+<section class="section salePage">
+  <div class="container">
+    <h2 class="pageHeader">Подбор матрасса</h2>
 
-{% for selection in selections %}
+    <div class="saleBase">
+      {% for selection in selections %}
+      <div class="item d-flex">
+        <img class='banner' src={{selection.image_for_cart.url}} alt="">
 
-<strong> Название: {{ selection.title }}, </strong>
-<strong>Жесткость: {{ selection.rigidity }}, </strong>
-<strong>Размер: {{ selection.size }}, </strong>
-<strong>Высота: {{ selection.height }}, </strong>
+        <div class="info">
+          <h3>{{ selection.title }}</h3>
+          <ul>
+            <li>Жесткость: {{ selection.rigidity }}</li>
+            <li>Размер: {{ selection.size }}</li>
+            <li>Цена: {{selection.price}}</li>
+          </ul>
+          <button onclick="location.href='{% url 'item' ct_model=selection.category slug=selection.slug %}'" 
+          class="golden-button">ПОДРОБНЕЕ</button>
+        </div>
 
-{% endfor %}
+        
+        
+      </div>
+      {% endfor %}
+    </div>
+
+
+
+
+
+</div>
+</section>
 {% endblock content %}

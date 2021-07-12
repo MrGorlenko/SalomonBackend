@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+{% block content %}
+
+<p>Это фильтр</p>
+
+{% for selection in selections %}
+
+<strong> Название: {{ selection.title }}, </strong>
+<strong>Жесткость: {{ selection.rigidity }}, </strong>
+<strong>Размер: {{ selection.size }}, </strong>
+<strong>Высота: {{ selection.height }}, </strong>
+
+{% endfor %}
+{% endblock content %}

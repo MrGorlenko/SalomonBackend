@@ -31,14 +31,112 @@ class Main_Page(CartMixin, View):
             context=context
         )
 
+    def post(self, request, *args, **kwargs):
+        Size = request.POST.get('FilterSize')
+        Height = request.POST.get('FilterHeight')
+        Rigidity = request.POST.get('FilterRigidity')
+        if Height == '' and Rigidity == '':
+            selection = Good.objects.filter(size=Size)
+            context = {
+                'selections': selection,
+            }
+            return render(
+                request,
+                'main/selection.html',
+                context=context,
+            )
+        elif Size == '' and Rigidity == '':
+            selection = Good.objects.filter(height=Height)
+            context = {
+                'selections': selection,
+            }
+            return render(
+                request,
+                'main/selection.html',
+                context=context,
+            )
+        elif Size == '' and Height == '':
+            selection = Good.objects.filter(rigidity=Rigidity)
+            context = {
+                'selections': selection,
+            }
+            return render(
+                request,
+                'main/selection.html',
+                context=context,
+            )
+        elif Size == '':
+            selection = Good.objects.filter(rigidity=Rigidity, height=Height)
+            context = {
+                'selections': selection,
+            }
+            return render(
+                request,
+                'main/selection.html',
+                context=context,
+            )
+        elif Height == '':
+            selection = Good.objects.filter(rigidity=Rigidity, size=Size)
+            context = {
+                'selections': selection,
+            }
+            return render(
+                request,
+                'main/selection.html',
+                context=context,
+            )
+        elif Rigidity == '':
+            selection = Good.objects.filter(height=Height, size=Size)
+            context = {
+                'selections': selection,
+            }
+            return render(
+                request,
+                'main/selection.html',
+                context=context,
+            )
+        else:
+            selection = Good.objects.filter(rigidity=Rigidity, size=Size, height=Height)
+            context = {
+                'selections': selection,
+            }
+            return render(
+                request,
+                'main/selection.html',
+                context=context,
+            )
+
 
 class Product_Comparison(CartMixin, View):
 
     def post(self, request, *args, **kwargs):
         ct_model, slug = kwargs.get('ct_model'), kwargs.get('slug')
-        if ct_model == 'матрасы':
+        if ct_model == 'Матрасы':
             product_ids = []
             ids = Good.objects.filter(category=2).values_list('id', flat=True)
+            print(ids)
+            goods = Good.objects.all()
+            for remaining_id in ids:
+                product_ids.append(remaining_id)
+            product_ids.remove(int(slug))
+            goodCategories = GoodsCategory.objects.all()
+            product_comparison = Good.objects.get(pk=slug)
+            products = Good.objects.filter(pk__in=product_ids)
+            context = {
+                'goods_list': goods,
+                'products': products,
+                'goods_cats': goodCategories,
+                'ct_model': ct_model,
+                'product_comparison': product_comparison,
+            }
+            return render(
+                request,
+                'main/comparing.html',
+                context=context,
+            )
+        elif ct_model == 'Кресла':
+            product_ids = []
+            ids = Good.objects.filter(category=3).values_list('id', flat=True)
             print(ids)
             goods = Good.objects.all()
             for remaining_id in ids:
@@ -228,7 +326,6 @@ class Change_Count_Items(CartMixin, View):
 class Success_Page(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
-
         return render(
             request,
             'main/success.html'

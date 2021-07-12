@@ -59,10 +59,10 @@
             <span>Выбрать</span> 
 
             <ul class='unactive'>
-              <li onclick="select2.selectOption('Жесткий')">
-                Жесткий</li>
-              <li onclick="select2.selectOption('Мягкий')">
-                Мягкий</li>
+              <li onclick="select2.selectOption('Жесткая')">
+                Жесткая</li>
+              <li onclick="select2.selectOption('Мягкая')">
+                Мягкая</li>
             </ul>
 
           </div>
@@ -75,20 +75,34 @@
             <span>Выбрать</span> 
 
             <ul class='unactive'>
-              <li onclick="select3.selectOption('Высокий')">
-                Высокий</li>
-              <li onclick="select3.selectOption('Низкий')">
-                Низкий</li>
+              <li onclick="select3.selectOption('80')">
+                80</li>
+              <li onclick="select3.selectOption('40')">
+                40</li>
             </ul>
 
           </div>
       
         </li>
       </ul>
-
-      <button class='search__btn golden-button'>
-        Подобрать
-      </button>
+      <!-- ФОРМА -->
+      <form 
+      id='FilterForm'
+      class='d-flex align-items-center flex-direction-column' style='width: 100%;' 
+      action=""
+      method="POST"
+      >
+        {% csrf_token %}
+      <!-- ИНПУТЫ  -->
+      <input id='FilterSize' type="text" hidden name="FilterSize">
+      <input id='FilterHeight' type="text" hidden name="FilterHeight">
+      <input id='FilterRigidity' type="text" hidden name="FilterRigidity">
+      <!-- ИНПУТЫ  -->
+        <button  class='search__btn golden-button' type="submit">
+          Подобрать
+        </button>
+      </form>
+      <!-- ФОРМА -->
     </div>
     
     <div class='d-flex flex-direction-column hero__slider'>
@@ -174,8 +188,6 @@
 </section>
 
 <section class='section catalogMain'>
-
-  
 
   <div class="container">
 
@@ -344,8 +356,12 @@
             {% endfor %}
             <form class='buy_on_click' action="{% url 'add_to_cart' ct_model=good.category slug=good.id %}" method="POST">
               {% csrf_token %}
+            {% comment %} INPUT WITH HEIGHT {% endcomment %}
               <input hidden name='goodsHEIGHT' class='goodsHEIGHT' type="text">
+            {% comment %} INPUT WITH HEIGHT {% endcomment %}
+            {% comment %} INPUT WITH SIZE {% endcomment %}
               <input hidden name='goodsSIZE' class='goodsSIZE' type="text">
+            {% comment %} INPUT WITH SIZE {% endcomment %}
               <button class='gold one-click-button' type="submit">Купить в 1 клик</button>
             </form>
 
@@ -433,6 +449,49 @@
   </div>
 </section>
 
+<script>
+  $(function() {
+
+    var searchSelects = $('.search__selects li .select')
+
+    let SizeInput = document.querySelector('#FilterSize'),
+    HeightInput = document.querySelector('#FilterHeight'),
+    RigidityInput = document.querySelector('#FilterRigidity')
+    
+    $('#FilterForm').submit(function(event){
+      event.preventDefault()
+      alert('нет')
+    })
+
+    Object.values(searchSelects).forEach((select)=>{
+      select.onclick = () => {
+      if (!select.classList.contains('selected')){
+        select.classList.add('selected')
+        select.parentNode.querySelector('ul').className = 'active'
+      } else {
+        select.classList.remove('selected')
+        select.parentNode.querySelector('ul').className = 'unactive'
+        if (select.classList.contains('select1')){
+          SizeInput.value = select.querySelector('span').innerHTML
+          $('#FilterForm').unbind('submit')
+        }
+        if (select.classList.contains('select2')){
+          RigidityInput.value = select.querySelector('span').innerHTML
+          $('#FilterForm').unbind('submit')
+        }
+        if (select.classList.contains('select3')){
+          HeightInput.value = select.querySelector('span').innerHTML
+          $('#FilterForm').unbind('submit')
+        }
+      }
+      }
+    })
+
+
+
+
+   })
+</script>
 
 <script>
 
@@ -615,7 +674,7 @@ $(function() {
 });
   </script>
 
-  <script>
+<script>
   let heightButtons = document.querySelectorAll('.buttonsWidget')
 
 
@@ -641,7 +700,7 @@ heightButtons.forEach((btns, index) => {
     console.log(btns.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value)
 })
 
-  </script>
+</script>
 
 
 {% endblock content %}

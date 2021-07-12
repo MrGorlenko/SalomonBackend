@@ -78,7 +78,7 @@
               <li onclick="select3.selectOption('Высокая')">
                 Высокая</li>
               <li onclick="select3.selectOption('Средняя')">
-                Средняя</li>
+                Средняя</li>  
               <li onclick="select3.selectOption('Низкая')">
                 Низкая</li>
             </ul>
@@ -130,9 +130,12 @@
                     {{slide.subtitle}}
                   </p>
                 </div>
-                <button class='slider__btn golden-button'>
-                  Подробнее
-                </button>   
+                <a href='{{slide.url}}'>
+                  <button class='slider__btn golden-button'>
+                    Подробнее
+                  </button> 
+                </a>
+  
               </div>
             {% endfor %}
           </div>

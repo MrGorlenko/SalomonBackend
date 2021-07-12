@@ -4,7 +4,6 @@ from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
 import djrichtextfield.models
-import phonenumber_field.modelfields
 
 
 class Migration(migrations.Migration):
@@ -98,7 +97,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(blank=True, max_length=100, null=True, verbose_name='Имя заказчика')),
-                ('telephone', phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, null=True, region=None)),
                 ('email', models.EmailField(blank=True, max_length=254, null=True, verbose_name='Email Заказчика')),
                 ('agreement', models.BooleanField(default=False, verbose_name='Соглашение с правилами')),
                 ('status', models.CharField(choices=[('Новый заказ', 'Новый заказ'), ('В процессе', 'Заказ в обработке'), ('Готов', 'Заказ готов'), ('Завершен', 'Заказ выполнен')], default='Новый заказ', max_length=100, verbose_name='Статус заказ')),

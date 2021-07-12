@@ -4,7 +4,7 @@ from django.db import models
 from djrichtextfield.models import RichTextField
 from django.urls import reverse
 from django.utils import timezone
-from phonenumber_field.modelfields import PhoneNumberField
+# from phonenumber_field.modelfields import PhoneNumberField
 
 
 def get_product_url(obj, viewname):
@@ -273,7 +273,8 @@ class Order(models.Model):
     )
 
     name = models.CharField(null=True, max_length=100, verbose_name='Имя заказчика', blank=True)
-    telephone = PhoneNumberField(null=True, blank=True, unique=False)
+    # telephone = PhoneNumberField(null=True, blank=True, unique=False)
+    telephone = models.CharField(null=True, max_length=50)
     email = models.EmailField(null=True, blank=True, verbose_name='Email Заказчика')
     agreement = models.BooleanField(default=False, verbose_name='Соглашение с правилами')
     customer = models.ForeignKey(Customer, verbose_name='Покупатель', related_name='related_orders',

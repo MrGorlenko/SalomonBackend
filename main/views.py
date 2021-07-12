@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.views.generic import DetailView, View
 from main.models import *
 from main.mixins import *
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 class Main_Page(CartMixin, View):
@@ -251,6 +253,15 @@ class Cart_View(CartMixin, View):
         )
         customer.orders.add(order)
         order.save()
+        send_mail('Заказ №{}'.format(order.id),
+                  'Заказчик {}, телефон заказчика {}, товар можно посмотреть в козине {}, комментарии к заказу: {}'.format(
+                      name,
+                      phone,
+                      self.cart.id,
+                      comment
+                  ),
+                  settings.EMAIL_HOST_USER,
+                  ['ilu6a234@gmail.com'])
         return HttpResponseRedirect('/success/')
 
 

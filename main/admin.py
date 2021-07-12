@@ -71,7 +71,7 @@ admin.site.register(Good, PropsAdminImage)
 
 @admin.register(Goods_Cart)
 class Goods_Cart_Admin(admin.ModelAdmin):
-    list_display = ('get_content_object', 'cart', )
+    list_display = ('get_content_object', 'cart',)
     list_per_page = sys.maxsize
 
     def get_content_object(self, obj):
@@ -94,14 +94,18 @@ class Customer_Admin(admin.ModelAdmin):
 
 @admin.register(Cart)
 class Cart_Admin(admin.ModelAdmin):
-    list_display = ('get_products', 'total_products',)
+    list_display = ('get_id', 'get_products', 'total_products',)
     list_filter = ('products',)
     list_per_page = sys.maxsize
+
+    def get_id(self, obj):
+        return obj.id
 
     def get_products(self, obj):
         return ", \n".join([p.content_object.title for p in obj.products.all()])
 
     get_products.short_description = 'Товары в корзине'
+    get_id.short_description = 'Корзина'
 
 
 @admin.register(Order)
@@ -180,5 +184,5 @@ class Goods_Cart_Proxy_Admin(admin.ModelAdmin):
 
 @admin.register(Comments)
 class Comments_Admin(admin.ModelAdmin):
-    list_display = ('name', 'rating', )
-    list_filter = ('rating', )
+    list_display = ('name', 'rating',)
+    list_filter = ('rating',)

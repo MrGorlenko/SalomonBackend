@@ -11,7 +11,7 @@ ALLOWED_HOSTS = ['*']
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'Uroky322@yandex.ru'
-EMAIL_HOST_PASSWORD = 'ilu6a234'
+EMAIL_HOST_PASSWORD = '#######'
 DEFAULT_FROM_EMAIL = 'ilu6a234@gmail.com'
 EMAIL_USE_TLS = True
 

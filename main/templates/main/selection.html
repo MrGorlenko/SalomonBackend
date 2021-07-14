@@ -31,11 +31,6 @@
             <span style='font-weight: bold; font-size: 18px; margin-right: 15px;'>{{selection.price}} Руб.</span>
             <span style='font-weight: normal; font-size: 15px; text-decoration: line-through;'>{{selection.old_price}} Руб.</span>
           </p>
-          <!-- <ul>
-            <li>Жесткость: {{ selection.rigidity }}</li>
-            <li>Размер: {{ selection.size }}</li>
-            <li>Цена: {{ selection.price }}</li>
-          </ul> -->
           <button onclick="location.href='{% url 'item' ct_model=selection.category slug=selection.slug %}'" 
           class="golden-button">ПОДРОБНЕЕ</button>
         </div>

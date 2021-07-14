@@ -435,6 +435,67 @@
   </div>
 </section>
 
+<section class='section feedbacks'>
+
+  <div class="feedbacks__bg"></div>
+
+  <div class="container">
+
+    <h4>Отзывы</h4>
+    <div class="swiper-container6">
+
+      <div class="custom-arrow3">
+        <img class='prev' src="{% static 'img/arrowPrev3.svg' %}" alt="">
+        <img class='next' src="{% static 'img/arrowNext3.svg' %}" alt="">
+      </div>
+      <div class="swiper-wrapper">
+
+        {% for comment in comments %}
+        <div class="feedback swiper-slide">
+          <div class="author d-flex">
+
+            <div class="pic">
+              <img src="{% static 'img/unknown.png' %}" alt="">
+            </div>
+            <div class="info">
+
+              <p class="name">{{comment.name}}</p>
+              <span>{{comment.title}}</span>
+
+              <div class="mark">
+                <img src="{% static 'img/filledStar.svg' %}" alt="">
+                <img src="{% static 'img/filledStar.svg' %}" alt="">
+                <img src="{% static 'img/filledStar.svg' %}" alt="">
+                <img src="{% static 'img/filledStar.svg' %}" alt="">
+                <img src="{% static 'img/filledStar.svg' %}" alt="">
+  
+                / 
+  
+                5 из 5
+              </div>
+
+            </div>
+
+          </div>
+          <img class='line' src="{% static 'img/goldenWhiteDottenLine.svg' %}" alt="">
+          <div class="content">
+            <p>
+              {{comment.comment}}
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+</section>
+
 <section class='ModalCartWrapper d-none'>
   <div class='ModalCart d-flex align-items-center flex-direction-column'>
 

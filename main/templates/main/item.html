@@ -1,5 +1,8 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% block title %}
+{{ item.title }}
+{% endblock title %}
 {% block content %}
   <!-- base -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -15,7 +18,7 @@
   <section class="section Item">
     <div class="container">
       <div class="item-slider">
-        <h3 class='d-lg-none'>Матрас Family <br> Rich</h3>
+        <h3 class='d-lg-none'>{{item.category}} <br> {{item.title}}</h3>
         <div class="swiper-container8">
           <div class="swiper-wrapper">
             {% for slide in  images %}
@@ -135,12 +138,8 @@
         <form id="buy_on_click" action="{% url 'add_to_cart' ct_model=item.category slug=item.id %}" method="POST">
           {% csrf_token %}
             <button class='red-button' type="submit">Купить</button>
-            {% comment %} INPUT WITH HEIGHT {% endcomment %}
             <input hidden name='goodsHEIGHT' class='goodsHEIGHT' type="text">
-          {% comment %} INPUT WITH HEIGHT {% endcomment %}
-          {% comment %} INPUT WITH SIZE {% endcomment %}
             <input hidden name='goodsSIZE' class='goodsSIZE' type="text">
-          {% comment %} INPUT WITH SIZE {% endcomment %}
         </form>
 
 
@@ -644,6 +643,60 @@
     </div>
   </section>
 
+  <section class='section feedbacks'>
+
+    <div class="feedbacks__bg"></div>
+  
+    <div class="container">
+  
+      <h4>Отзывы</h4>
+      <div class="swiper-container6">
+  
+        <div class="custom-arrow3">
+          <img class='prev' src="{% static 'img/arrowPrev3.svg' %}" alt="">
+          <img class='next' src="{% static 'img/arrowNext3.svg' %}" alt="">
+        </div>
+        <div class="swiper-wrapper">
+  
+          {% for comment in comments %}
+          <div class="feedback swiper-slide">
+            <div class="author d-flex">
+              <div class="pic">
+                <img src="{% static 'img/unknown.png' %}" alt="">
+              </div>
+              <div class="info">
+                <p class="name">{{comment.name}}</p>
+                <span>{{comment.title}}</span>
+                <div class="mark">
+                  <img src="{% static 'img/filledStar.svg' %}" alt="">
+                  <img src="{% static 'img/filledStar.svg' %}" alt="">
+                  <img src="{% static 'img/filledStar.svg' %}" alt="">
+                  <img src="{% static 'img/filledStar.svg' %}" alt="">
+                  <img src="{% static 'img/filledStar.svg' %}" alt="">
+                  / 
+                  5 из 5
+                </div>
+              </div>
+            </div>
+            <img class='line' src="{% static 'img/goldenWhiteDottenLine.svg' %}" alt="">
+            <div class="content">
+              <p>
+                {{comment.comment}}
+              </p>
+            </div>
+          </div>
+          {% endfor %}
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  
+  
+  </section>
+
   <section class='ModalCartWrapper d-none'>
     <div class='ModalCart d-flex align-items-center flex-direction-column'>
   
@@ -1097,6 +1150,7 @@
   </section> -->
 
 
+
   <script>
 $(function() {
     $("#buy_on_click").submit(function(event) {
@@ -1149,34 +1203,103 @@ $(function() {
   </script>
 
   <script>
-    let heightButtons = document.querySelectorAll('.buttonsWidget'),
-    sizeSelects = document.querySelectorAll('.sizeSelects')
-    
-    sizeSelects.forEach((select)=>{
-      select.onclick = () => {
-        document.querySelector('.select').children[0].innerHTML = select.innerHTML
-        document.querySelector('.goodsSIZE').value = select.innerHTML
-      }
-    })
-  
-  
-  heightButtons.forEach((btns, index) => {
-      btns.children[0].className = 'active'
-      btns.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value = btns.children[0].innerHTML
-      console.log(btns.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value)
+    const btnChar = document.querySelector('#btnChar'),
+    btnDescr = document.querySelector('#btnDescr'),
+    btnFeedbacks = document.querySelector('#btnFeedbacks'),
+    baseChars = document.querySelector('#baseChars');
+    let buttonsItemsSwitcher = document.querySelectorAll('#ItemCharsSwitcher button');
 
-      btns.onclick = () => {
-        for (let i = 0; i<btns.children.length; i++) {
-          if (btns.children[i].className == 'active'){
-            btns.children[i].className = ''
-          } else {
-            btns.children[i].className = 'active'
-            event.target.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value = btns.children[i].innerHTML
+    let charactersMinHeight = () => {
+      document.getElementById('ItemCharacters').style.minHeight = baseChars.offsetHeight + document.getElementById('btnDescr').offsetHeight + document.getElementById('btnChar').offsetHeight + document.getElementById('btnFeedbacks').offsetHeight + 40 + 'px'
+    },
+    descrUp = () => {
+      baseChars.style.top = document.getElementById('btnDescr').offsetHeight - 2 + 'px'
+      document.getElementById('btnChar').style.top = baseChars.offsetHeight + document.getElementById('btnDescr').offsetHeight + 10 + 'px'
+      document.getElementById('btnFeedbacks').style.top = baseChars.offsetHeight + document.getElementById('btnDescr').offsetHeight + document.getElementById('btnChar').offsetHeight + 20 + 'px'
+    },
+    charsUp = () => {
+      baseChars.style.top = document.getElementById('btnDescr').offsetHeight + document.getElementById('btnChar').offsetHeight + 8 + 'px'
+      document.getElementById('btnChar').style.top = document.getElementById('btnDescr').offsetHeight + 10 + 'px';
+      document.getElementById('btnFeedbacks').style.top =  document.getElementById('btnDescr').offsetHeight + document.getElementById('btnChar').offsetHeight + baseChars.offsetHeight + 20 + 'px'
+    },
+    feedbacksUp = () => {
+      document.getElementById('btnChar').style.top = (document.getElementById('btnDescr').offsetHeight * 1) + 10 + 'px'
+      document.getElementById('btnFeedbacks').style.top = (document.getElementById('btnDescr').offsetHeight * 2) + 20 + 'px'
+      baseChars.style.top = (document.getElementById('btnDescr').offsetHeight * 3) + 18 + 'px'
+      
+    }
+
+    if (window.screen.width > 575) {
+      let heightButtons = document.querySelectorAll('.buttonsWidget'),
+      sizeSelects = document.querySelectorAll('.sizeSelects')
+      
+      sizeSelects.forEach((select)=>{
+        select.onclick = () => {
+          document.querySelector('.select').children[0].innerHTML = select.innerHTML
+          document.querySelector('.goodsSIZE').value = select.innerHTML
+        }
+      })
+    
+    
+    heightButtons.forEach((btns, index) => {
+        btns.children[0].className = 'active'
+        btns.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value = btns.children[0].innerHTML
+        console.log(btns.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value)
+  
+        btns.onclick = () => {
+          for (let i = 0; i<btns.children.length; i++) {
+            if (btns.children[i].className == 'active'){
+              btns.children[i].className = ''
+            } else {
+              btns.children[i].className = 'active'
+              event.target.parentNode.parentNode.parentNode.parentNode.querySelector('.goodsHEIGHT').value = btns.children[i].innerHTML
+            }
           }
         }
-      }
-  })
+    })
+    }  
+    else {
+      descrUp()
+      charactersMinHeight()
+      buttonsItemsSwitcher.forEach((element, index) => {
+        element.addEventListener('click', (elem, i) => {
+      
+          buttonIndex = index;
+          console.log(buttonIndex)
+          if (buttonIndex == 0) {
+           // showDescr()
+            descrUp()
+            charactersMinHeight()
+          } else if (buttonIndex == 1) {
+           // showChars()
+            charsUp()
+            charactersMinHeight()
+          } else if (buttonIndex == 2) {
+          //  showFeedbacks()
+            feedbacksUp()
+            charactersMinHeight()
+          }
+        })
+      
+      })
+
+     // btnChar.style.top = 15 + ~~baseChars.offsetHeight + ~~btnDescr.offsetHeight  + 'px'
+     // btnFeedbacks.style.top = 25 + ~~btnChar.offsetHeight + ~~baseChars.offsetHeight + ~~btnDescr.offsetHeight + 'px'
+  
+     // btnChar.onclick = () => {
+     //   btnChar.style.top = 15 + ~~btnDescr.offsetHeight  + 'px'
+     //   baseChars.style.top = ~~btnChar.style.top + ~~btnChar.offsetHeight + 'px'
+     // }
+
+    }
+
+
+
+
+
     </script>
+
+
 
   {% endblock content %}
     

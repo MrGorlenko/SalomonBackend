@@ -17,6 +17,7 @@ class Main_Page(CartMixin, View):
         goodsHeight = Goods_Height.objects.all()
         goodSizes = Goods_Sizes.objects.all()
         goodIcons = Goods_Icons.objects.all()
+        comments = Comments.objects.all()
         context = {
             'slides_list': slides,
             'goods_list': goods,
@@ -26,6 +27,7 @@ class Main_Page(CartMixin, View):
             'goods_icons': goodIcons,
             'goods_cats': goodCategories,
             'cart': self.cart,
+            'comments': comments,
         }
         return render(
             request,
@@ -499,6 +501,7 @@ class Items_Details(CartMixin, DetailView):
         context['sizes'] = Goods_Sizes.objects.all()
         context['goods_cats'] = GoodsCategory.objects.all()
         context['goods_list'] = Good.objects.all()
+        context['comments'] = Comments.objects.all()
         return context
 
     context_object_name = 'item'
